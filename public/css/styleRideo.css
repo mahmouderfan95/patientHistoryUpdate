@@ -1,0 +1,164 @@
+.middle {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.middle input[type="radio"] {
+  display: none;
+}
+
+.middle input[type="radio"]:checked + .box {
+  border: 3px solid #0478c9;
+  border-radius: 5%;
+}
+
+.middle input[type="radio"]:checked + .box span:before {
+  -webkit-transform: translateY(0px);
+          transform: translateY(0px);
+  opacity: 1;
+}
+
+.middle .box {
+  width: 130px;
+  height: 120px;
+  background-color: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 5%;
+  padding: 5px;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+  will-change: transition;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+}
+
+.middle .box:active {
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+}
+
+.middle .box span {
+  position: absolute;
+  -webkit-transform: translate(0, 60px);
+          transform: translate(0, 60px);
+  left: 0;
+  right: 0;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+  font-size: 13pt;
+  padding-top: 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #0478c9;
+}
+
+.middle .box span:before {
+  font-size: 1.2em;
+  display: block;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  font-weight: normal;
+  color: #000;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1,
+p,
+input::-webkit-input-placeholder,
+button {
+  font-family: 'roboto', sans-serif;
+  font-size: 14px;
+}
+
+.form {
+  margin-top: 30px;
+  width: 100%;
+  padding: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form .group {
+  position: relative;
+  padding-bottom: 1em;
+}
+
+.form .group label {
+  position: absolute;
+  pointer-events: none;
+  left: 0.5em;
+  top: .5em;
+  font-size: 18px;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+  color: #868686;
+}
+
+.form .group input[type=text],.form .group input[type=email], .form .group [type=password] {
+  background-color: transparent;
+  padding: 0.75em 1.5em;
+  line-height: 1.5em;
+  border: 0;
+  display: block;
+  width: 100%;
+  margin-top: 2em;
+  border-bottom: 1px solid #0478c9;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(96%, rgba(255, 255, 255, 0)), color-stop(4%, #0478c9));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #0478c9 4%);
+  background-position: -100em 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding-left: 0.5em;
+  -webkit-transition: 0.3s cubic-bezier(0.64, 0.09, 0.08, 1) all;
+  transition: 0.3s cubic-bezier(0.64, 0.09, 0.08, 1) all;
+}
+
+.form .group input[type=text]:focus, .form .group input[type=email]:focus, .form .group input[type=text]:valid,.form .group input[type=email]:valid, .form .group [type=password]:focus, .form .group [type=password]:valid {
+  background-position: 0 0;
+}
+
+.form .group input[type=text]:focus ~ label, .form .group input[type=text]:valid ~ label, .form .group [type=password]:focus ~ label, .form .group [type=password]:valid ~ label, .form .group [type=email]:focus ~ label, .form .group [type=email]:valid ~ label {
+  color: #0478c9;
+  font-size: 12pt;
+  font-weight: 700;
+  top: -1.5em;
+}
+
+.form .group input[type=text]:focus, .form .group [type=password]:focus, .form .group [type=email]:focus {
+  outline: none;
+}
+
+.form input[type=submit] {
+  background-color: #0478c9;
+  padding: 0.75em 1.5em;
+  line-height: 1.5em;
+  border: 0;
+  background-color: #0478c9;
+  color: #fff;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form input[type=submit]:hover {
+  -webkit-transform: translateY(-3px);
+          transform: translateY(-3px);
+  -webkit-box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+/*# sourceMappingURL=styleRideo.css.map */
