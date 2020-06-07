@@ -9,7 +9,7 @@ use App\models\Patien;
 use App\Http\Requests\backEnd\xray\Store;
 use App\Http\Requests\backEnd\xray\Update;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\xrayCreate;
+use App\Mail\verifyXray;
 use Auth;
 use Image;
 class xrayController extends Controller
@@ -44,13 +44,19 @@ class xrayController extends Controller
         /* insert data */
         $xray_create = Xray::create($request_data);
         /* send mail */
-        Mail::to($xray_create->email)->send(new xrayCreate($xray_create));
-        /* login */
-        Auth::guard('xray')->login($xray_create);
+        Mail::to($xray_create->email)->send(new verifyXray($xray_create));
+
         // return redirct //
-        return redirect()->route('xray.profile',$xray_create['id']);
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* end of function */
+    public function verifyXray($id){
+        $xray = Xray::findOrFail($id);
+        $xray->verify = 1;
+        $xray->save();
+        auth()->guard('xray')->login($xray);
+        return redirect()->route('xray.edit.profile',$pharmacy->id);
+    }
     /* function edit profile */
     public function editProfile($id){
         $xray = Xray::findOrFail($id);

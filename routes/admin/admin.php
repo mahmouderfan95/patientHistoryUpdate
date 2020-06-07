@@ -15,14 +15,14 @@ Route::group(
             Route::get('/indexRegister','backEndController@indexRegister')->name('indexRegister');
             /* patient routes */
             Route::get('/patien/register','patienController@register')->name('patienRegister');
-            Route::post('/patien/register','patienController@postRegister')->name('patien_post_Register')->middleware('verified');;
+            Route::post('/patien/register','patienController@postRegister')->name('patien_post_Register');
             Route::get('/patien/profile/{id}','patienController@profile')->name('patien-profile')->middleware('is_patient');
             Route::get('/patien/edit/profile/{id}','patienController@editProfile')->name('edit.profile')->middleware('is_patient');
             Route::post('patien/update/profile/{id}','patienController@updateProfile')->name('update.profile');
             Route::get('/patien/logout','patienController@logout')->name('patien.logout');
             Route::get('/patien/edit/data/{id}','patienController@editData')->name('edit.data.profile');
             Route::put('/patien/update/data/{id}','patienController@updateData')->name('update.data.profile');
-
+            Route::get('/patien/verify/{id}','patienController@verifyPatient')->name('verifyPatient');
             /* patient routes */
             /* clinic routes */
             Route::get('/clinic/register','clinicController@register')->name('clinicRegister');
@@ -35,6 +35,7 @@ Route::group(
             Route::post('/clinic/{id}/raoucata','clinicController@storeRaoucata')->name('storeRaoucata');
             Route::post('/clinic/{id}/analazes','clinicController@patient_add_analzes')->name('patient_clinic_add_analzes');
             Route::post('/clinic/{id}/rays','clinicController@patient_add_rays')->name('patient_clinic_add_rays');
+            Route::get('/clinic/verify/{id}','clinicController@verifyClinic')->name('verifyClinic');
             /* clinic routes */
             /* hosptail routes */
             Route::get('/hosptail/register','hosptailController@register')->name('hosptailRegister');
@@ -47,6 +48,7 @@ Route::group(
             Route::post('/hosptail/{id}/raoucata','hosptailController@storeRaoucata')->name('storeRaoucata');
             Route::post('/hosptail/{id}/analazes','hosptailController@patient_add_analzes')->name('patient_add_analzes');
             Route::post('/hosptail/{id}/rays','hosptailController@patient_add_rays')->name('patient_add_rays');
+            Route::get('/hosptail/verify/{id}','hosptailController@verifyhosptail')->name('verifyhosptail');
             /* hosptail routes */
             /* xray routes */
             Route::get('/xray/register','xrayController@register')->name('xrayRegister');
@@ -56,6 +58,7 @@ Route::group(
             Route::put('/xray/update/profile/{id}','xrayController@updateProfile')->name('xray.update.profile');
             Route::get('/xray/logout','xrayController@logout')->name('xray.logout');
             Route::get('/xray/{id}/patient/search','xrayController@search')->name('xray.patient.search')->middleware('is_xray');
+            Route::get('/xray/verify/{id}','xrayController@verifyXray')->name('verifyXray');
             /* xray routes */
             /* labs routes */
             Route::get('/labs/register','labsController@register')->name('labsRegister');
@@ -65,6 +68,7 @@ Route::group(
             Route::get('/labs/profile/{id}','labsController@profile')->name('labs.profile')->middleware('is_lab');
             Route::get('/labs/logout','labsController@logout')->name('labs.logout');
             Route::get('/labs/{id}/patient/search','labsController@search')->name('labs.patient.search')->middleware('is_lab');
+            Route::get('/labs/verify/{id}','labsController@verifyLabs')->name('verifyLabs');
             /* labs routes */
             /* pharmacy routes */
             Route::get('/pharmacy/register','pharmacyController@register')->name('pharmacyRegister');
@@ -74,6 +78,8 @@ Route::group(
             Route::put('/pharmacy/update/profile/{id}','pharmacyController@updateProfile')->name('pharmacy.update.profile');
             Route::get('/pharmacy/logout','pharmacyController@logout')->name('pharmacy.logout');
             Route::get('/pharmacy/{id}/patient/search','pharmacyController@search')->name('pharmacy.patient.search')->middleware('is_pharmacy');
+            Route::get('/pharmacy/verify/{id}','pharmacyController@verifyPharmacy')->name('verifyPharmacy');
+            // Route::get('/pharmacy/{id}/patient/getroacata','pharmacyController@getLastRoacata')->name('get.last.roacata');
             /* pharmacy routes */
             /* login route */
             Route::post('/login','backEndController@login')->name('loginRoute');

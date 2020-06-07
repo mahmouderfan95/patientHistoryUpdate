@@ -18,7 +18,7 @@ use App\Http\Requests\backEnd\hosptail\StoreAnalaz;
 use App\Http\Requests\backEnd\hosptail\StoreRays;
 use App\Http\Requests\backEnd\hosptail\StoreRaoucata;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\hosptailCreate;
+use App\Mail\verifyHosptail;
 use Auth;
 use Image;
 use Storage;
@@ -53,13 +53,20 @@ class hosptailController extends Controller
         /* insert data */
         $hosptail_create = Hosptail::create($request_data);
         /* send mail */
-        // Mail::to($hosptail_create->email)->send(new hosptailCreate($hosptail_create));
-        /* login clinic */
-        Auth::guard('hosptail')->login($hosptail_create);
+         Mail::to($hosptail_create->email)->send(new verifyHosptail($hosptail_create));
+
         // return redirct //
-        return redirect()->route('hosptail.profile',$hosptail_create['id']);
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* function hosptail */
+    /* function verify hosptail */
+    public function verifyHosptail($id){
+        $hosptail = Hosptail::findOrFail($id);
+        $hosptail->verify = 1;
+        $hosptail->save();
+        auth()->guard('hosptail')->login($patient);
+        return redirect()->route('hosptail.edit.profile',$hosptail->id);
+    }
     /* edit profile */
     public function editProfile($id){
         $hosptail = Hosptail::findOrFail($id);

@@ -10,6 +10,11 @@
                 @foreach($errors->all() as $error)
                 <div class="alert alert-danger">{{$error}}</div>
                 @endforeach
+                @if (session('verifyMsg'))
+                <div class="alert alert-success">
+                    {{ session('verifyMsg') }}
+                </div>
+                @endif
                 <form enctype="multipart/form-data" role="form" action="{{route('patien_post_Register')}}" method="POST" class="login-box">
                     {{ csrf_field() }}
                     <input type="hidden" name="role">

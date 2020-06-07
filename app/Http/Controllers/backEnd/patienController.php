@@ -6,16 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\Patien;
 use App\models\patientData;
+use App\models\verify_patient;
 use App\Http\Requests\backEnd\patien\Store;
 use App\Http\Requests\backEnd\patien\Update;
 use App\Http\Requests\backEnd\patien\UpdateData;
 use Image;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\patienWelcome;
+use App\Mail\verify_patien;
 use Auth;
 
 class patienController extends Controller
 {
+    // protected $redirectTo = '/patien';
+    // protected $guard = 'patien';
     public function register(){
         return view('backEnd.patien.register');
     }
@@ -39,13 +43,25 @@ class patienController extends Controller
         /* insert data */
         $patienData = Patien::create($request_data);
 
-        /* send mail */
-        Mail::to($patienData->email)->send(new patienWelcome($patienData));
-        /* login patien */
-        Auth::guard('patien')->login($patienData);
-        return redirect()->route('edit.profile',$patienData['id'])->with('msg','Data created success');
+        /* send email verifaction */
+        Mail::to($patienData->email)->send(new verify_patien($patienData));
+        /* send email verifaction */
+        // redireact page check your mail //
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* end of function */
+    /* function verify email */
+    public function verifyPatient($id){
+        $patient = Patien::findOrFail($id);
+        $patient->verify = 1;
+        $patient->save();
+        auth()->guard('patien')->login($patient);
+        return redirect()->route('edit.profile',$patient->id);
+    }
+    /* function verify email */
+
+
+
     public function profile($id){
         $patient = Patien::with('patinets_data')->findOrFail($id);
         // dd($patient->with('patinets_data'));

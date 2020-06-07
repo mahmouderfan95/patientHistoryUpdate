@@ -11,7 +11,7 @@ use App\Http\Requests\backEnd\pharmacy\Update;
 use Auth;
 use Image;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\pharmacyCreate;
+use App\Mail\verifyPharmacy;
 
 class pharmacyController extends Controller
 {
@@ -43,13 +43,18 @@ class pharmacyController extends Controller
         /* insert data */
         $pharmacy_create = Pharmacy::create($request_data);
         /* send mail */
-        Mail::to($pharmacy_create->email)->send(new pharmacyCreate($pharmacy_create));
-        /* login */
-        Auth::guard('pharmacy')->login($pharmacy_create);
+        Mail::to($pharmacy_create->email)->send(new verifyPharmacy($pharmacy_create));
         // return redirct //
-        return redirect()->route('pharmacy.profile',$pharmacy_create['id']);
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* end of function */
+    public function verifyPharmacy($id){
+        $pharmacy = Pharmacy::findOrFail($id);
+        $pharmacy->verify = 1;
+        $pharmacy->save();
+        auth()->guard('pharmacy')->login($pharmacy);
+        return redirect()->route('pharmacy.edit.profile',$pharmacy->id);
+    }
     public function profile($id){
         $pharmacy = Pharmacy::find($id);
         return view('backEnd.pharmacy.profile',compact('pharmacy'));
@@ -98,5 +103,13 @@ class pharmacyController extends Controller
         }
     }
     /* function search patient form phone number */
+
+    /* get all rocata from patient */
+    // public function getLastRoacata($id){
+    //     $patient = Patien::with('Raoucheh',function($q){
+    //         $q->select('prescription');
+    //     })->get();
+    //     dd($patient->Raoucheh);
+    // }
 
 }

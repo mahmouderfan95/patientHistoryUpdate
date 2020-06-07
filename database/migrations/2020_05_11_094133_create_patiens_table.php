@@ -27,7 +27,7 @@ class CreatePatiensTable extends Migration
             $table->string('state');
             $table->string('country')->default('Egypt');
             $table->string('role');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('verify')->default(false);
             $table->timestamps();
         });
     }

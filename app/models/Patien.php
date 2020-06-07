@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Patien extends Authenticatable implements MustVerifyEmail
+class Patien extends Authenticatable
 {
     use Notifiable;
     protected $fillable = [
@@ -21,14 +21,15 @@ class Patien extends Authenticatable implements MustVerifyEmail
         'password',
         'state',
         'country',
-        'role'];
+        'role',
+        'verify'];
         // hidden field //
         protected $hidden = ['password'];
 
-        protected $casts = [
-            'email_verified_at' => 'datetime',
-        ];
-
+        // protected $casts = [
+        //     'email_verified_at' => 'datetime',
+        // ];
+        /* -------- relation ------*/
         public function patinets_data(){
             return $this->hasOne('App\models\patientData','patient_id');
         }
@@ -41,6 +42,7 @@ class Patien extends Authenticatable implements MustVerifyEmail
         public function patient_rays(){
             return $this->hasMany('App\models\patientRays','patient_id');
         }
+        /* -------- relation ------*/
 
 
 }

@@ -11,7 +11,7 @@ use App\Http\Requests\backEnd\labs\Update;
 use Auth;
 use Image;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\LabCreate;
+use App\Mail\verifyLabs;
 class labsController extends Controller
 {
     public function register(){
@@ -42,11 +42,16 @@ class labsController extends Controller
         /* insert data */
         $lab_create = Lab::create($request_data);
         /* send mail */
-        Mail::to($lab_create->email)->send(new LabCreate($lab_create));
-        /* login */
-        Auth::guard('lab')->login($lab_create);
+        Mail::to($lab_create->email)->send(new verifyLabs($lab_create));
         // return redirct //
-        return redirect()->route('labs.profile',$lab_create['id']);
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
+    }
+    public function verifyLabs($id){
+        $labs = Labs::findOrFail($id);
+        $labs->verify = 1;
+        $labs->save();
+        auth()->guard('labs')->login($labs);
+        return redirect()->route('labs.edit.profile',$labs->id);
     }
     /* function edit profile */
     public function editProfile($id){

@@ -31,6 +31,7 @@ class CreateLabsTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('role');
+            $table->boolean('verify')->default(false);
             $table->timestamps();
         });
     }

@@ -27,5 +27,7 @@ class Hosptail extends Authenticatable implements MustVerifyEmail
     'zip_code',
     'email',
     'password',
-    'role'];
+    'role',
+    'verify',
+];
 }

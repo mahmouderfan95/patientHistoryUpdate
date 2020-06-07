@@ -17,7 +17,7 @@ use App\Http\Requests\backEnd\clinic\StoreRays;
 use Auth;
 use Image;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\clinicCreate;
+use App\Mail\verifyClinic;
 use Validator;
 
 class clinicController extends Controller
@@ -50,12 +50,20 @@ class clinicController extends Controller
         /* insert data */
         $clinic_create = Clinic::create($request_data);
         /* send mail */
-        Mail::to($clinic_create->email)->send(new clinicCreate($clinic_create));
-        /* login clinic */
-        Auth::guard('clinic')->login($clinic_create);
+        Mail::to($clinic_create->email)->send(new verifyClinic($clinic_create));
+
         // return redirct //
-        return redirect()->route('clinic.profile',$clinic_create['id']);
+        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
+    /* function verify clinic */
+    public function verifyClinic($id){
+        $clinic = Clinic::findOrFail($id);
+        $clinic->verify = 1;
+        $clinic->save();
+        auth()->guard('clinic')->login($clinic);
+        return redirect()->route('clinic.edit.profile',$clinic->id);
+    }
+    /* end of function */
     /* function profile */
     public function profile($id){
         $clinic = Clinic::find($id);
