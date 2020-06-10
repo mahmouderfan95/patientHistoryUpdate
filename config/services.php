@@ -33,5 +33,9 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
+    'twilio'=> [
+        'sid'   => env('TWILIO_SID'),
+        'token' => env('TWILIO_AUTH_TOKEN'),
+    ]
 
 ];

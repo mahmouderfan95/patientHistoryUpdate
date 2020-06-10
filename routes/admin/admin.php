@@ -23,6 +23,8 @@ Route::group(
             Route::get('/patien/edit/data/{id}','patienController@editData')->name('edit.data.profile');
             Route::put('/patien/update/data/{id}','patienController@updateData')->name('update.data.profile');
             Route::get('/patien/verify/{id}','patienController@verifyPatient')->name('verifyPatient');
+            Route::get('/verifyCode','backEndController@verify');
+            Route::post('/verifyCode','backEndController@postVerify')->name('postVerify');
             /* patient routes */
             /* clinic routes */
             Route::get('/clinic/register','clinicController@register')->name('clinicRegister');

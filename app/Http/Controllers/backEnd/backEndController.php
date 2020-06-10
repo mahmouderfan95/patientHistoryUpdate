@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Validator;
+use App\models\Patien;
 
 class backEndController extends Controller
 {
@@ -44,5 +45,22 @@ class backEndController extends Controller
     }
     // public function club(){
     //     return view('backEnd.club');
+    // }
+
+
+    /* verifaction code */
+    public function verify(){
+        return view('backEnd.verify');
+    }
+
+    // public function postVerify(Request $request){
+    //     if($patient = Patien::where('code',$request->code)->first()){
+    //         $patient->is_active = 1;
+    //         $patient->code = null;
+    //         $patient->save();
+    //         return redirect()->route('indexRoute');
+    //     }else{
+    //         return back();
+    //     }
     // }
 }

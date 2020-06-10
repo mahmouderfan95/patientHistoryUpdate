@@ -22,7 +22,9 @@ class Patien extends Authenticatable
         'state',
         'country',
         'role',
-        'verify'];
+        'verify',
+        'code',
+        'is_active'];
         // hidden field //
         protected $hidden = ['password'];
 
