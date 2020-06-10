@@ -1355,3 +1355,49 @@
 
   /*End-EditProfile*/
   /*# sourceMappingURL=style.css.map */
+
+  /* password validation */
+#message {
+    display:none;
+    background: #252525;
+    color: #FFF;
+    border-radius: 5%;
+    position: relative;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  #message h3{
+      font-size: 16px !important;
+      margin-bottom: 10px;
+  }
+  #message p {
+    padding-left: 13px;
+    font-size: 15px;
+  }
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  .vaild span{
+      color:#FFF;
+  }
+  .valid:before {
+    position: relative;
+    font-size: 14pt;
+    left: -13px;
+    content: "✔";
+  }
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  .invalid span{
+    color:#FFF;
+  }
+  .invalid:before {
+    position: relative;
+    font-size: 14pt;
+    left: -13px;
+    content: "✖";
+  }
+  /* password validation */

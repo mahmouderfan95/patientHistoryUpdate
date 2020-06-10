@@ -138,7 +138,7 @@
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Testing and Radiology</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Radiology</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -147,29 +147,36 @@
                       <div class="col-md-12">
                         <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
                           <div class="col-12">
-                            <h5 class="mt-4 float-right">08/05/2020</h5>
+                            <h5 class="mt-4 float-right">{{$patient->patient_rays[0]->created_at}}</h5>
                           </div>
-                          <div class="row col-12 mb-3">
+                          {{-- <div class="row col-12 mb-3">
                             <div class="col-4">
                               <h5 class="font-weight-bold">Test</h5>
                             </div>
                             <div class="col-8">
                               <h5 class="">High Blood Pressure</h5>
                             </div>
-                          </div>
+                          </div> --}}
                           <div class="row col-12 mb-3">
                             <div class="col-4">
                               <h5 class="font-weight-bold">Rideology</h5>
                             </div>
+                            @php
+                                // $rays = json_decode($last_rays->name,true);
+                            @endphp
                             <div class="col-8">
-                              <h5 class="">High Blood Pressure</h5>
+                                    @foreach($last_rays as $rays)
+                                        @foreach($rays->patient_rays as $patient_ray)
+                                            <h5>{{$patient_ray->name}}</h5>
+                                        @endforeach
+                                    @endforeach
                             </div>
-                            <div class="col-4">
+                            {{-- <div class="col-4">
                               <h5 class="font-weight-bold"></h5>
                             </div>
                             <div class="col-8">
                               <h5 class="">High Blood Pressure</h5>
-                            </div>
+                            </div> --}}
                           </div>
                         </div>
                       </div>

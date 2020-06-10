@@ -64,7 +64,7 @@ class hosptailController extends Controller
         $hosptail = Hosptail::findOrFail($id);
         $hosptail->verify = 1;
         $hosptail->save();
-        auth()->guard('hosptail')->login($patient);
+        auth()->guard('hosptail')->login($hosptail);
         return redirect()->route('hosptail.edit.profile',$hosptail->id);
     }
     /* edit profile */

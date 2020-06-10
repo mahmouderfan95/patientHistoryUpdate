@@ -138,7 +138,7 @@
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Testing and Radiology</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Testing </h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -147,18 +147,22 @@
                       <div class="col-md-12">
                         <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
                           <div class="col-12">
-                            <h5 class="mt-4 float-right">08/05/2020</h5>
+                            <h5 class="mt-4 float-right">{{$last_analzes[0]->created_at}}</h5>
                           </div>
                           <div class="row col-12 mb-3">
                             <div class="col-4">
-                              <h5 class="font-weight-bold">Test</h5>
+                              <h5 class="font-weight-bold">Analyzes</h5>
                             </div>
                             <div class="col-8">
-                              <h5 class="">High Blood Pressure</h5>
+                                @foreach($last_analzes as $labs)
+                                    @foreach($labs->patientAnalzazes as $patient_analz)
+                                        <h5>{{$patient_analz['name']}}</h5>
+                                    @endforeach
+                                @endforeach
                             </div>
                           </div>
                           <div class="row col-12 mb-3">
-                            <div class="col-4">
+                            {{-- <div class="col-4">
                               <h5 class="font-weight-bold">Rideology</h5>
                             </div>
                             <div class="col-8">
@@ -169,7 +173,7 @@
                             </div>
                             <div class="col-8">
                               <h5 class="">High Blood Pressure</h5>
-                            </div>
+                            </div> --}}
                           </div>
                         </div>
                       </div>

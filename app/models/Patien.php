@@ -40,7 +40,7 @@ class Patien extends Authenticatable
             return $this->hasMany('App\models\patientAnalazes','patient_id');
         }
         public function patient_rays(){
-            return $this->hasMany('App\models\patientRays','patient_id');
+            return $this->hasMany('App\models\patient_rays','patient_id');
         }
         /* -------- relation ------*/
 

@@ -28,7 +28,7 @@ class Store extends FormRequest
             'xrayName' => 'required',
             'Medical_License_Number'  => 'required',
             'xray_License' => 'image|required',
-            'phoneNumber'   => 'required',
+            'phoneNumber'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
             'telephone'     => 'required',
             // 'phoneNumber'   => 'required',
             'Hotline'    => 'required',

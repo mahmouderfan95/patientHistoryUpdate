@@ -28,7 +28,7 @@ class Store extends FormRequest
             'pharmacyName' => 'required',
             'Medical_License_Number'  => 'required',
             'pharmacy_License' => 'required',
-            'phoneNumber'   => 'required',
+            'phoneNumber'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
             'telephone'     => 'required',
             // 'phoneNumber'   => 'required',
             'Hotline'    => 'required',

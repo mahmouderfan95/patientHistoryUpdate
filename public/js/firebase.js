@@ -10,6 +10,7 @@ function render(){
 function phoneAuth(){
     var numberval = document.getElementById('number').value;
     var appVerifier  = window.recaptchaVerifier;
+    var ranamCode = ra
     firebase.auth().signInWithPhoneNumber(numberval, appVerifier)
     .then(function (confirmationResult) {
       // SMS sent. Prompt user to type the code from the message, then sign the

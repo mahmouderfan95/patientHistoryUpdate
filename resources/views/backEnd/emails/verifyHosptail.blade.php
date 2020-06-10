@@ -8,6 +8,6 @@
     <br/>
     Your registered email-id is {{$hosptail->email}} , Please click on the below link to verify your email account
     <br/>
-    <a href="{{route('verifyClinic',$hosptail->id)}}">Verify Email</a>
+    <a href="{{route('verifyHosptail',$hosptail->id)}}">Verify Email</a>
   </body>
 </html>

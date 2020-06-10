@@ -44,10 +44,10 @@ class patienController extends Controller
         $patienData = Patien::create($request_data);
 
         /* send email verifaction */
-        Mail::to($patienData->email)->send(new verify_patien($patienData));
+        // Mail::to($patienData->email)->send(new verify_patien($patienData));
         /* send email verifaction */
         // redireact page check your mail //
-        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
+        return redirect()->route('checkEmail');
     }
     /* end of function */
     /* function verify email */

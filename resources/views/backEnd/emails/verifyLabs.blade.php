@@ -8,6 +8,6 @@
     <br/>
     Your registered email-id is {{$labs->email}} , Please click on the below link to verify your email account
     <br/>
-    <a href="{{route('verifyClinic',$labs->id)}}">Verify Email</a>
+    <a href="{{route('verifyLabs',$labs->id)}}">Verify Email</a>
   </body>
 </html>

@@ -55,7 +55,7 @@ class xrayController extends Controller
         $xray->verify = 1;
         $xray->save();
         auth()->guard('xray')->login($xray);
-        return redirect()->route('xray.edit.profile',$pharmacy->id);
+        return redirect()->route('xray.edit.profile',$xray->id);
     }
     /* function edit profile */
     public function editProfile($id){
@@ -99,8 +99,9 @@ class xrayController extends Controller
     public function search($id,Request $request){
         $xray = Xray::findOrFail($id);
         $patient = Patien::where('phoneNumber','like','%' . $request->search . '%')->first();
+        $last_rays = $patient->with('patient_rays')->orderBy('id','desc')->get();
         if($patient){
-            return view('backEnd.xray.search-patient',compact('patient','xray'));
+            return view('backEnd.xray.search-patient',compact('patient','xray','last_rays'));
         }else{
             return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
         }

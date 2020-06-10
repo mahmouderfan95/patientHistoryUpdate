@@ -31,7 +31,7 @@ class UpdateData extends FormRequest
             'BirthDate' => 'required',
             'gender'   => 'required',
             'email'     => 'required|email',
-            'phoneNumber'   => 'required',
+            'phoneNumber'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
             // 'NationalNumber'    => 'required',
             // 'country'           => 'required',
             // 'password'          => 'required|confirmed',

@@ -28,7 +28,7 @@ class Update extends FormRequest
             'labName' => '',
             'Medical_License_Number'  => '',
             // 'Hosptail_License' => '',
-            'phoneNumber'   => '',
+            'phoneNumber'   => 'regex:/^([0-9\s\-\+\(\)]*)$/|required',
             'telephone'     => '',
             // 'phoneNumber'   => 'required',
             'Hotline'    => '',

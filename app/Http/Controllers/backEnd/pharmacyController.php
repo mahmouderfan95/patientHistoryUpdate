@@ -96,8 +96,9 @@ class pharmacyController extends Controller
     public function search($id,Request $request){
         $pharmacy = Pharmacy::findOrFail($id);
         $patient = Patien::where('phoneNumber','like','%' . $request->search . '%')->first();
+        $patient_roacata = $patient->with('Raoucheh')->orderBy('id','desc')->get();
         if($patient){
-            return view('backEnd.pharmacy.search-patient',compact('patient','pharmacy'));
+            return view('backEnd.pharmacy.search-patient',compact('patient','pharmacy','patient_roacata'));
         }else{
             return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
         }

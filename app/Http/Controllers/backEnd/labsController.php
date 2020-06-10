@@ -47,7 +47,7 @@ class labsController extends Controller
         return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     public function verifyLabs($id){
-        $labs = Labs::findOrFail($id);
+        $labs = Lab::findOrFail($id);
         $labs->verify = 1;
         $labs->save();
         auth()->guard('labs')->login($labs);
@@ -92,8 +92,9 @@ class labsController extends Controller
     public function search($id,Request $request){
         $labs = Lab::findOrFail($id);
         $patient = Patien::where('phoneNumber','like','%' . $request->search . '%')->first();
+        $last_analzes = $patient->orderBy('id','desc')->with('patientAnalzazes')->get();
         if($patient){
-            return view('backEnd.labs.search-patient',compact('patient','labs'));
+            return view('backEnd.labs.search-patient',compact('patient','labs','last_analzes'));
         }else{
             return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
         }

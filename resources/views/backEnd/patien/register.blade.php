@@ -56,7 +56,7 @@
                             <label class="h6 font-weight-bold" for="gender">Gender</label>
                             <div class="form-flex">
                                 <input type="radio" name="gender" value="male" id="male" checked="checked" />
-                                <label for="male">Mlae</label>
+                                <label for="male">Male</label>
 
                                 <input type="radio" name="gender" value="female" id="female" />
                                 <label for="female">Female</label>
@@ -74,15 +74,22 @@
                                 <label class="h6 font-weight-bold">Phone Number</label>
                                     <form>
                                         <input class="mdl-textfield__input form-control" type="text" id="number" placeholder="+2001011962928" name="phoneNumber">
-                                        {{-- <div id="recaptcha-container"></div>
-                                        <button class="btn btn-success" onclick="phoneAuth();">Send Code</button> --}}
+                                         <div id="recaptcha-container"></div>
+                                        {{-- <button class="btn btn-success" onclick="phoneAuth();">Send Code</button>  --}}
                                     </form>
                             </div>
                         </div>
                         <div class="col-md-6 mb-xl-3">
                             <div class="form-group">
                                 <label class="h6 font-weight-bold">Password</label>
-                                <input class="form-control" type="password" name="password" placeholder="Password">
+                                <input id = "psw"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" type="password" name="password" placeholder="Password">
+                                <div id="message">
+                                    {{-- <h3>Password must contain the following:</h3> --}}
+                                    <p id="letter" class="invalid"><span>A lowercase letter</span></p>
+                                    <p id="capital" class="invalid"><span>A capital (uppercase) letter</span></p>
+                                    {{-- <p id="number" class="invalid"><span>A number</span></p> --}}
+                                    <p id="length" class="invalid"><span>Minimum 8 characters </span></p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-xl-3">
@@ -105,7 +112,7 @@
                             </div>
                         </div>
                         <div class="col-12 text-center mb-5 mt-5">
-                            <button id = "sign-in-button" type="submit"  class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
+                            <button onclick="phoneAuth(); id = "sign-in-button" type="submit"  class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
                         </div>
                     </div>
                 </form>

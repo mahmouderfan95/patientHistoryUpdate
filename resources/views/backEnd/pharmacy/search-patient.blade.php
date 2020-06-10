@@ -111,20 +111,28 @@
                         <div class="col-md-12">
                           <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
                             <div class="col-12">
-                              <h5 class="mt-4 mb-3 float-right">08/05/2020</h5>
+                              <h5 class="mt-4 mb-3 float-right">{{$patient->Raoucheh[0]->created_at}}</h5>
                             </div>
                             <div class="row col-12 mb-3">
                               <div class="col-4">
                                 <h5 class="font-weight-bold">Medication</h5>
                               </div>
+                              @php
+                                $medication_name = json_decode($patient->Raoucheh[0]->medication_name,true);
+                                $times_day = json_decode($patient->Raoucheh[0]->time,true);
+                              @endphp
+                              @foreach($medication_name as $ro)
+                                <div class="col-4">
+                                    <h5 class="">{{$ro}}</h5>
+                                </div>
+                              @endforeach
+                              @foreach($times_day as $time)
                               <div class="col-4">
-                                <h5 class="">HighBlood</h5>
+                                <h5 class="">{{$time}}</h5>
                               </div>
-                              <div class="col-4">
-                                <h5 class="">After Eating</h5>
-                              </div>
+                              @endforeach
                             </div>
-                            <div class="row col-12 mb-3">
+                            {{-- <div class="row col-12 mb-3">
                               <div class="col-4">
                                 <h5 class="font-weight-bold"></h5>
                               </div>
@@ -134,7 +142,7 @@
                               <div class="col-4">
                                 <h5 class="">After Eating</h5>
                               </div>
-                            </div>
+                            </div> --}}
                           </div>
                         </div>
                       </div>

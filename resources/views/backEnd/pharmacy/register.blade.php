@@ -93,7 +93,14 @@
                         <div class="col-md-6 mb-xl-3">
                             <div class="form-group">
                                 <label class="h3 font-weight-bold">Password</label>
-                                <input class="form-control" type="password" name="password" placeholder="">
+                                <input id = "psw"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" type="password" name="password" placeholder="Password">
+                                <div id="message">
+                                    {{-- <h3>Password must contain the following:</h3> --}}
+                                    <p id="letter" class="invalid"><span>A lowercase letter</span></p>
+                                    <p id="capital" class="invalid"><span>A capital (uppercase) letter</span></p>
+                                    {{-- <p id="number" class="invalid"><span>A number</span></p> --}}
+                                    <p id="length" class="invalid"><span>Minimum 8 characters </span></p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-xl-3">

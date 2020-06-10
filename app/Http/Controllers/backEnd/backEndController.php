@@ -39,7 +39,10 @@ class backEndController extends Controller
 
 
     }
-    public function club(){
-        return view('backEnd.club');
+    public function checkEmail(){
+        return view('backEnd.layoutes.checkYourEmail');
     }
+    // public function club(){
+    //     return view('backEnd.club');
+    // }
 }

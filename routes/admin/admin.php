@@ -32,7 +32,7 @@ Route::group(
             Route::get('/clinic/logout','clinicController@logout')->name('clinic.logout');
             Route::get('/clinic/{id}/patient/search','clinicController@search')->name('clinic.patient.search')->middleware('is_clinic');
             Route::put('/clinic/profile/{id}','clinicController@updateProfile')->name('clinic.update.profile');
-            Route::post('/clinic/{id}/raoucata','clinicController@storeRaoucata')->name('storeRaoucata');
+            Route::post('/clinic/{id}/raoucata','clinicController@storeRaoucata')->name('store_clinic_Raoucata');
             Route::post('/clinic/{id}/analazes','clinicController@patient_add_analzes')->name('patient_clinic_add_analzes');
             Route::post('/clinic/{id}/rays','clinicController@patient_add_rays')->name('patient_clinic_add_rays');
             Route::get('/clinic/verify/{id}','clinicController@verifyClinic')->name('verifyClinic');
@@ -45,7 +45,7 @@ Route::group(
             Route::get('/hosptail/profile/{id}','hosptailController@profile')->name('hosptail.profile')->middleware('is_hosptail');
             Route::get('/hosptail/logout','hosptailController@logout')->name('hosptail.logout');
             Route::get('/hosptail/{id}/patient/search','hosptailController@search')->name('hosptail.patient.search')->middleware('is_hosptail');
-            Route::post('/hosptail/{id}/raoucata','hosptailController@storeRaoucata')->name('storeRaoucata');
+            Route::post('/hosptail/{id}/raoucata','hosptailController@storeRaoucata')->name('store_hosptail_Raoucata');
             Route::post('/hosptail/{id}/analazes','hosptailController@patient_add_analzes')->name('patient_add_analzes');
             Route::post('/hosptail/{id}/rays','hosptailController@patient_add_rays')->name('patient_add_rays');
             Route::get('/hosptail/verify/{id}','hosptailController@verifyhosptail')->name('verifyhosptail');
@@ -83,6 +83,9 @@ Route::group(
             /* pharmacy routes */
             /* login route */
             Route::post('/login','backEndController@login')->name('loginRoute');
+            /* login route */
+            /* check your email page */
+            Route::get('/check/email','backEndController@checkEmail')->name('checkEmail');
 
         });
     });
