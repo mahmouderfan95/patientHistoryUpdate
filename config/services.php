@@ -33,9 +33,21 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
-    'twilio'=> [
-        'sid'   => env('TWILIO_SID'),
-        'token' => env('TWILIO_AUTH_TOKEN'),
-    ]
+    // 'twilio'=> [
+    //     'sid'   => env('TWILIO_SID'),
+    //     'token' => env('TWILIO_AUTH_TOKEN'),
+    // ]
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_CLIENT_REDIRECT'),
+    ],
+
+    'google' => [
+        'client_id' => '959883475680-trmrlorphs0c7uopevsdspfih6r92hfc.apps.googleusercontent.com',
+        'client_secret' => 'ZCHHTeHxVsdMB_tyCIeuB4jS',
+        'redirect' => 'http://localhost:8000/login/google/callback',
+    ],
 
 ];

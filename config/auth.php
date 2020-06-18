@@ -144,6 +144,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'patien' => [
+            'provider' => 'patien',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
     ],
 
 ];

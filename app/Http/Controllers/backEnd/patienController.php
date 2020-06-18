@@ -24,7 +24,7 @@ class patienController extends Controller
         return view('backEnd.patien.register');
     }
     /* function register patient */
-    public function postRegister(Request $request){
+    public function postRegister(Store $request){
         $request_data = $request->all();
         // dd($request->all());
         /* upload img */
@@ -39,22 +39,27 @@ class patienController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'patient';
-        $request_data['code'] = rand(11111,00000);
+        $request_data['is_active'] = false;
+        // dd($request->all());
         // dd($request_data['code']);
         /* insert data */
         $patienData = Patien::create($request_data);
-        return response()->json([
-            'mobile' => $request->phoneNumber,
-            'code'  => $request_data['code'],
-            'message'=> 'good',
-        ]);
+        // return redirect()->route();
+        return redirect()->route('patient_verify',compact('patienData'));
+
         /* send email verifaction */
-        // Mail::to($patienData->email)->send(new verify_patien($patienData));
+
         /* send email verifaction */
-        // redireact page check your mail //
-        // return redirect()->route('checkEmail');
     }
     /* end of function */
+    /* function send email */
+    public function sendEmail($id){
+        $patient = Patien::findOrFail($id);
+        Mail::to($patient->email)->send(new verify_patien($patient));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+
+    /* end of function send email */
     /* function verify email */
     public function verifyPatient($id){
         $patient = Patien::findOrFail($id);
@@ -174,5 +179,9 @@ class patienController extends Controller
         return redirect()->route('indexRoute');
     }
     /* end of function */
+
+    public function verfi(){
+        return view('backEnd.layoutes.verficationCode');
+    }
 
 }

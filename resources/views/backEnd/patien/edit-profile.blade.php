@@ -226,7 +226,7 @@
                                             <div class="field">
                                                 <div class="ui checkbox">
                                                     <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden" value="agree-one">
-                                                    <label class="label-input">Agree One</label>
+                                                    <label class="label-input">Heart disease</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -236,7 +236,165 @@
                                             <div class="field">
                                                 <div class="ui checkbox">
                                                 <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
-                                                <label class="label-input">Agree Two</label>
+                                                <label class="label-input">High blood pressure </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">high cholesterol </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Lung disease</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input"> Diabetes</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Neck pain</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Severe headaches </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Anemia or other blood disease</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Back pain</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Seizures </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Thyroid disease </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Stroke Sleep apnea </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Stomach disease </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Kidney , bladder or prostate disease </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Blood clots </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Depression  </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- col -->
+
+                                        <!-- col -->
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                <input name = "agree_name[]" type="checkbox" tabindex="0" class="hidden"value="agree-two">
+                                                <label class="label-input">Cancer ( past or present )  </label>
                                                 </div>
                                             </div>
                                         </div>

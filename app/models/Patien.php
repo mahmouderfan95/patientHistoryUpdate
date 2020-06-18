@@ -5,10 +5,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\PatientResetPasswordNotification;
+
 
 class Patien extends Authenticatable
 {
     use Notifiable;
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PatientResetPasswordNotification($token));
+    }
+
+
     protected $fillable = [
         'image',
         'firstName',
@@ -24,7 +32,10 @@ class Patien extends Authenticatable
         'role',
         'verify',
         'code',
-        'is_active'];
+        'is_active',
+        'provider',
+        'provider_id',
+        'remember_token'];
         // hidden field //
         protected $hidden = ['password'];
 

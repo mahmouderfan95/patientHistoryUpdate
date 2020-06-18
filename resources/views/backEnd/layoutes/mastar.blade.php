@@ -39,7 +39,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap">
         <link rel="stylesheet" href="{{url('css/simple-sidebar.css')}}">
         <link rel="stylesheet" href="{{url('css/style.css')}}">
-        <link rel="stylesheet" href="{{url('../css/styleRideo.css')}}" type="text/css">
+        <link rel="stylesheet" href="{{url('css/styleRideo.css')}}" type="text/css">
     </head>
     <body class="">
         <div class="main">
@@ -61,6 +61,8 @@
         <script src="{{url('js/main.js')}}"></script>
         <script src="{{url('js/typed.js')}}"></script>
         <script src="{{url('js/firebase.js')}}"></script>
+
+
 
         @yield('scripts')
     </body>

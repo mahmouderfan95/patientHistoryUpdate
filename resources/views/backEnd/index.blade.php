@@ -28,6 +28,8 @@
          <!-- form login -->
          @if(session('msg'))
             <div class="alert alert-danger">{{session('msg')}}</div>
+        @elseif(session('activeMsg'))
+            <div class="alert alert-success">{{session('activeMsg')}}</div>
          @endif
 
 
@@ -80,22 +82,24 @@
         <div class="container row">
             <div class="col-md-6 form">
                 <p class="group">
-                <input id="name" type="email" required name="email">
-                <label for="name">Email or Phone Namber</label>
+                <input id="name" type="text" required name="email">
+                <label for="name">Email</label>
                 </p>
                 <p class="group">
                 <input id="Password" type="password" required name="password">
                 <label for="name">Password</label>
                 </p><br/>
-                <a class="text-forget" href="loginAbout.html">Forget Password?</a>
+                <a class="text-forget" href="{{url('patient/password/reset')}}">Forget Password?</a>
                 <input type="submit" value="Submit">
             </form>
             <!-- form login -->
-
             {{-- @include('backEnd.formLogin') --}}
           </div>
         </div>
         <div class="text-account">
+         <a href="{{url('login/facebook')}}">login by Facebook</a> |
+         <a href="{{url('login/google')}}">login by Google</a>
+         <br>
           OR
           <br>
           <a class="" href="{{route('indexRegister')}}">Don't have an Account ?</a>

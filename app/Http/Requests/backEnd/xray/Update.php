@@ -28,7 +28,7 @@ class Update extends FormRequest
             'xrayName' => '',
             'Medical_License_Number'  => '',
             // 'Hosptail_License' => '',
-            'phoneNumber'   => 'regex:/^([0-9\s\-\+\(\)]*)$/',
+            'phoneNumber'   => 'Rule::unique("xrays")->ignore($this->id)|regex:/^([0-9\s\-\+\(\)]*)$/',
             'telephone'     => '',
             // 'phoneNumber'   => 'required',
             'Hotline'    => '',
@@ -37,7 +37,7 @@ class Update extends FormRequest
             // 'area'          =>'required',
             // 'street'             => 'required',
             'zip_code'              => '',
-            'email'                 => 'email',
+            'email'                 => 'email|Rule::unique("xrays")->ignore($this->id)',
             // 'password'          => '',
             'old_password'      => ''
             // 'password_confirmation'=>'sometimes|required_with:password',

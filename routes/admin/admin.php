@@ -6,11 +6,20 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
         Route::group(['prefix'=>'dashbord','middleware' => 'web'],function(){
+            /* reset password patient */
+            Route::group(['namespace'=>'patient'],function(){
+            Route::post('password/email','ForgotPasswordController@sendResetLinkEmail')->name('patient.password.email');
+            Route::get('password/reset','ForgotPasswordController@showLinkRequestForm')->name('patient.password.request');
+            Route::post('password/reset','ResetPasswordController@reset');
+            Route::get('password/reset/{token?}','ResetPasswordController@showResetForm')->name('patient.password.reset');
+            });
+            /* reset password patient */
             /* 3 pages */
             Route::get('/club','backEndController@club')->name('club.page');
             Route::get('/Insurance','backEndController@Insurance')->name('Insurance.page');
             Route::get('/online','backEndController@online')->name('online.page');
             /* 3 pages */
+
             Route::get('/index','backEndController@index')->name('indexRoute');
             Route::get('/indexRegister','backEndController@indexRegister')->name('indexRegister');
             /* patient routes */
@@ -22,9 +31,11 @@ Route::group(
             Route::get('/patien/logout','patienController@logout')->name('patien.logout');
             Route::get('/patien/edit/data/{id}','patienController@editData')->name('edit.data.profile');
             Route::put('/patien/update/data/{id}','patienController@updateData')->name('update.data.profile');
+            Route::get('/patien/sendEmail/{id}','patienController@sendEmail')->name('patient_send_email');
             Route::get('/patien/verify/{id}','patienController@verifyPatient')->name('verifyPatient');
             Route::get('/verifyCode','backEndController@verify');
             Route::post('/verifyCode','backEndController@postVerify')->name('postVerify');
+            Route::get('/ver','patienController@verfi');
             /* patient routes */
             /* clinic routes */
             Route::get('/clinic/register','clinicController@register')->name('clinicRegister');
@@ -89,10 +100,14 @@ Route::group(
             /* check your email page */
             Route::get('/check/email','backEndController@checkEmail')->name('checkEmail');
 
+
         });
     });
 
-
+/* social media routes */
+Route::get('login/{provider}', 'socialController@redirectToProvider')->middleware('web');
+Route::get('login/{provider}/callback','socialController@handleProviderCallback')->middleware('web');
+/* social media routes */
 /* admin routes */
 
 

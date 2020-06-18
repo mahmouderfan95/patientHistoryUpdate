@@ -34,6 +34,7 @@ class CreateClinicsTable extends Migration
             $table->string('password');
             $table->string('role');
             $table->boolean('verify')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

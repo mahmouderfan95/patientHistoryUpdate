@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\backEnd\patient;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 class ResetPasswordController extends Controller
 {
     /*
@@ -25,7 +28,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+    protected $redirectTo = 'dashbord/index';
 
     /**
      * Create a new controller instance.
@@ -34,6 +37,19 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('guest');
+        $this->middleware('guest:patien');
+    }
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('backEnd.patien.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+    public function broker()
+    {
+        return Password::broker('patien');
+    }
+    protected function guard(){
+        return Auth::guard('patien');
     }
 }

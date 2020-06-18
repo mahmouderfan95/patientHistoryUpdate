@@ -30,14 +30,13 @@ class Store extends FormRequest
             'lastName'  => 'required',
             'BirthDate' => 'required',
             'gender'   => 'required',
-            'email'     => 'required|email',
-            'phoneNumber'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-            // 'NationalNumber'    => 'required',
-            // 'country'           => 'required',
-            'password'          => 'required|confirmed',
+            'email'     => 'required|email|unique:patiens',
+            'phoneNumber'   => 'required|unique:patiens|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'password'          => 'confirmed',
             'password_confirmation'=>'sometimes|required_with:password',
             'state'             => 'required',
             'role'              => '',
+            'is_active'         => ''
         ];
     }
 }

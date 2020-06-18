@@ -15,9 +15,11 @@
                     {{ session('verifyMsg') }}
                 </div>
                 @endif
-                <form id = "register" enctype="multipart/form-data" class="login-box">
+                <div id="error_msg"></div>
+                <form action = "{{route('patien_post_Register')}}" method="POST" id = "register" enctype="multipart/form-data" class="login-box">
                     {{ csrf_field() }}
                     <input type="hidden" name="role">
+                    <input type="hidden" name="is_active">
                     <div class="row">
                         <div class="container col-md-12">
                             <div class="avatar-wrapper">
@@ -72,11 +74,7 @@
                         <div class="col-md-6 mb-xl-3">
                             <div class="form-group">
                                 <label class="h6 font-weight-bold">Phone Number</label>
-                                    <form>
-                                        <input class="mdl-textfield__input form-control" type="text" id="number" placeholder="+2001011962928" name="phoneNumber">
-                                         <div id="recaptcha-container"></div>
-                                        {{-- <button class="btn btn-success" onclick="phoneAuth();">Send Code</button>  --}}
-                                    </form>
+                                <input type="text" placeholder="+2001011962928" name="phoneNumber" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6 mb-xl-3">
@@ -112,7 +110,7 @@
                             </div>
                         </div>
                         <div class="col-12 text-center mb-5 mt-5">
-                            <button onclick="phoneAuth(); id = "sign-in-button" type="submit"  class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
+                            <button onclick="phoneAuth();" id = "sign-in-button" type="submit"  class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
                         </div>
                     </div>
                 </form>
@@ -127,73 +125,4 @@
 <!-- footer -->
 
 @stop
-@section('scripts')
-<script>
-    // var base_url = "http:\/\/ladycaresa.com";
-// Login Stuff
-$('#register').submit(function(event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    var career_submit = document.getElementById("save");
-    //career_submit.disabled = true;
-    console.log('login');
-    var formData = new FormData(this);
-    $.ajax({
-            type: 'POST',
-            url: 'register',
-            dataType: 'json',
-            data: formData,
-            beforeSend: function() {
-                console.log("before");
-                $("#loading").show();
-            },
-            success: function (response) {
-                    console.log("after");
-                    if(response.errors) {
-                        console.log(response.errors);
-                        var error_msg = document.getElementById("error_msg");
-                        $('#error_msg').removeClass("alert alert-success");
-                        $('#error_msg').addClass( "alert alert-danger hideit" );
-                        error_msg.innerHTML= response.errors;
-                                $("#loading").hide();
-                                $("#error_msg").fadeIn(2000);
-                    }
 
-                    if(response.message) {
-                        //console.log(response.message);
-                        var error_msg = document.getElementById("error_msg");
-                        $('#error_msg').removeClass("alert alert-danger hideit");
-                        $('#error_msg').addClass( "alert alert-success hideit" );
-                        //error_msg.innerHTML= response.message;
-                        $("#loading").hide();
-                        // window.location = base_url;
-                        console.log(response.code);
-                        console.log(response.mobile);
-                        console.log(response.message);
-                        function phoneAuth(){
-                        firebase.auth().signInWithPhoneNumber(response.mobile, response.code)
-                        .then(function (confirmationResult) {
-                        // SMS sent. Prompt user to type the code from the message, then sign the
-                        // user in with confirmationResult.confirm(code).
-                        window.confirmationResult = confirmationResult;
-                        alert('msg is sent');
-                        }).catch(function (error) {
-                        // Error; SMS not sent
-                        // ...
-                        phoneAuth();
-                        console.log(error.message);
-                        });
-                    }
-                    }
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-    });
-
-});
-// /ADD Item
-</script>
-
-
-@stop

@@ -28,6 +28,7 @@ class CreatePatiensTable extends Migration
             $table->string('country')->default('Egypt');
             $table->string('role');
             $table->boolean('verify')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

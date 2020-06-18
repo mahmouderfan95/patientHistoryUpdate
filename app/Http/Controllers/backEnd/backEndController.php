@@ -23,7 +23,7 @@ class backEndController extends Controller
     /* end of function */
     public function login(REQUEST $request){
         $arr = [
-            'email' => 'required',
+            'phoneNumber' => 'required',
             'password'  => 'required',
             'guard'     => 'required|in:patien,clinic,hosptail,xray,labs,pharmacy'
         ];
@@ -32,10 +32,13 @@ class backEndController extends Controller
         if($vaild->fails()){
             return redirect()->back();
         }
-        $attmp = $request->only('email','password');
+        $attmp = $request->only('phoneNumber','password');
         if(! Auth::guard($request->get('guard'))->attempt($attmp)){
             return redirect()->back()->with('msg','email or passord incorrect');
         }
+        // elseif(auth()->guard($request->get('guard'))->is_active != 1){
+        //     return back()->with('msg','accont is not active');
+        // }
         return redirect('en/dashbord/' . $request->get('guard') . '/edit/profile' . '/' . auth()->guard($request->get('guard'))->user()->id);
 
 
