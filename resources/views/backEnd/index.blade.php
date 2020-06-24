@@ -82,14 +82,14 @@
         <div class="container row">
             <div class="col-md-6 form">
                 <p class="group">
-                <input id="name" type="text" required name="email">
-                <label for="name">Email</label>
+                <input id="name" type="text" required name="phoneNumber">
+                <label for="name">Phone Number</label>
                 </p>
                 <p class="group">
                 <input id="Password" type="password" required name="password">
                 <label for="name">Password</label>
                 </p><br/>
-                <a class="text-forget" href="{{url('patient/password/reset')}}">Forget Password?</a>
+                <a class="text-forget" href="{{route('forgot_password')}}">Forget Password?</a>
                 <input type="submit" value="Submit">
             </form>
             <!-- form login -->
@@ -109,6 +109,4 @@
 
     <!-- footer -->
     @include('backEnd.layoutes.footer')
-
-
 @stop

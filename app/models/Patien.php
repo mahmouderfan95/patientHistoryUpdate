@@ -35,7 +35,8 @@ class Patien extends Authenticatable
         'is_active',
         'provider',
         'provider_id',
-        'remember_token'];
+        'remember_token',
+        'online'];
         // hidden field //
         protected $hidden = ['password'];
 
@@ -49,13 +50,18 @@ class Patien extends Authenticatable
         public function Raoucheh(){
             return $this->hasMany('App\models\Raoucheh','patient_id');
         }
-        public function patientAnalzazes(){
-            return $this->hasMany('App\models\patientAnalazes','patient_id');
+        public function patient_analzes(){
+            return $this->hasMany('App\models\patient_analzes','patient_id');
         }
         public function patient_rays(){
             return $this->hasMany('App\models\patient_rays','patient_id');
         }
+        public function StorageAnalzes(){
+            return $this->hasMany('App\models\StorgeAnalazes','patient_id');
+        }
+        public function StorageRays(){
+            return $this->hasMany('App\models\StorgeRays','patient_id');
+        }
         /* -------- relation ------*/
-
 
 }

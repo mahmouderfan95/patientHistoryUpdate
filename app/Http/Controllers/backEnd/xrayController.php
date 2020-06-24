@@ -10,8 +10,11 @@ use App\Http\Requests\backEnd\xray\Store;
 use App\Http\Requests\backEnd\xray\Update;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\verifyXray;
+use App\models\StorgeAnalazes;
+use App\Http\Requests\backEnd\stogreAnalzes;
 use Auth;
 use Image;
+use Validator;
 class xrayController extends Controller
 {
     /* function register */
@@ -41,15 +44,25 @@ class xrayController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'xray';
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
+        $request_data['is_active'] = false;
         /* insert data */
         $xray_create = Xray::create($request_data);
-        /* send mail */
-        Mail::to($xray_create->email)->send(new verifyXray($xray_create));
+        // /* send mail */
+        // Mail::to($xray_create->email)->send(new verifyXray($xray_create));
 
         // return redirct //
-        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
+        return redirect()->route('xray_verify',compact('xray_create'));
+        // return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* end of function */
+     /* function send email */
+     public function sendEmail($id){
+        $xray = Xray::findOrFail($id);
+        Mail::to($xray->email)->send(new verifyXray($xray));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+    /* end of function send email */
     public function verifyXray($id){
         $xray = Xray::findOrFail($id);
         $xray->verify = 1;
@@ -107,4 +120,14 @@ class xrayController extends Controller
         }
     }
     /* function search patient form phone number */
+    public function addStorgeAnalzes($id,stogreAnalzes $request){
+        $request_data = $request->all();
+        if($files=$request->file('name')){
+            $name=$files->getClientOriginalName();
+            $files->move(public_path('uploads/pdf_file'),$name);
+        }
+
+        StorgeAnalazes::create($request_data);
+        return redirect()->back()->with(['successMsg'=> 'file Uploded Success']);
+    }
 }

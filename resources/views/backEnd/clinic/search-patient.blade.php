@@ -1,8 +1,10 @@
 @extends('backEnd.layoutes.mastar')
 @section('title',$patient->firstName . ' ' . $patient->middleName)
 @section('content')
+@include('backEnd.patien.slidenav')
+@if($patient->patinets_data > 0)
 <div class="d-flex bg-page" id="wrapper">
-    @include('backEnd.patien.slidenav')
+    
     <div id="page-content-wrapper">
     <!-- Topnav -->
     <nav class="navbarp navbar-top navbar-expand navbar-dark border-bottom">
@@ -97,306 +99,305 @@
             <div class="container-fluid">
               <div class="header-body">
                   <div class="row pt-5">
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Prescription">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Prescription
-                    </button>
-                  </div>
-                  @if(session('roacataMsg'))
-                  <div class="alert alert-success">{{session('roacataMsg')}}</div>
-                  @endif
-                  <!-- Modal -->
-                  <form action = "{{route('store_clinic_Raoucata',$clinic->id)}}" method="POST">
-                      {{ csrf_field() }}
-                      <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Prescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Prescription</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12 mr-auto ml-auto">
-                              <div class="form-group">
-                                <div class="col-xl-9 col-md-4 mt-3 mr-auto ml-auto mb-5">
-                                  <div class="ui input col-12">
-                                    <input name = "prescription" type="text" placeholder="prescription">
-                                  </div>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="ui input col-4">
-                                      <input name = "temperature" type="text" placeholder="Temperature">
-                                    </div>
-                                    <div class="ui input col-4">
-                                      <input name = "blood_pressure" type="text" placeholder="Blood Pressure">
-                                    </div>
-                                    <div class="ui input col-4">
-                                      <input name = "diabetics" type="text" placeholder="Diabetics">
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="col-md-4">
-                                        <select name = "jaw_type" class="ui selection dropdown">
-                                          <option value="">Type</option>
-                                          <option value="upper">Upper</option>
-                                          <option value="lower">Lower</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select name = "jaw_direction" class="ui selection dropdown">
-                                            <option value="">Direaction</option>
-                                          <option value="right">Right</option>
-                                          <option value="left">left</option>
-
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select name = "teeth_type" class="ui selection dropdown">
-                                          <option value="">3</option>
-                                          <option value="one">1</option>
-                                          <option value="two">2</option>
-                                          <option value="three">3</option>
-                                          <option value="four">4</option>
-                                          <option value="five">5</option>
-                                          <option value="six">6</option>
-                                        </select>
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="col-md-6 mr-auto ml-auto">
-                                        <select name = "eye_type" class="ui selection dropdown col-12">
-                                          <option value="">Eye type</option>
-                                          <option value="right">Right</option>
-                                          <option value="left">Left</option>
-                                        </select>
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <ul class="list-unstyled mb-5">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            {{-- <button type="button" class="btn btn-secondary h6" data-dismiss="modal">Close</button> --}}
-                            <input type="submit" class="btn btn-primary h6" value="Save">
-                          </div>
-                        </div>
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Prescription">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Prescription
+                        </button>
                       </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Testing">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Test
-                    </button>
-                  </div>
-                  <!-- Modal -->
-                  <form action = "{{route('patient_add_analzes',$clinic->id)}}" method = "POST">
-                      {{csrf_field()}}
-                      <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Test</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <ul class="list-unstyled">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-10 mr-auto ml-auto">
-                                        <div class="ui form col-12">
-                                          <div class="inline field">
-                                            <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Test</label>
-                                            <select name="name" multiple="" class="label ui large selection fluid dropdown">
-                                              <option value="">Chooste</option>
-                                              @foreach($analyzes as $analz)
-                                                <option value="{{$analz->name}}">{{$analz->name}}</option>
-                                              @endforeach
-                                            </select>
-                                          </div>
+                      @if(session('roacataMsg'))
+                      <div class="alert alert-success">{{session('roacataMsg')}}</div>
+                      @endif
+                      <!-- Modal -->
+                      <form action = "{{route('store_clinic_Raoucata',$clinic->id)}}" method="POST">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Prescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Prescription</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12 mr-auto ml-auto">
+                                  <div class="form-group">
+                                    <div class="col-xl-9 col-md-4 mt-3 mr-auto ml-auto mb-5">
+                                      <div class="ui input col-12">
+                                        <input name = "prescription" type="text" placeholder="prescription">
+                                      </div>
+                                    </div>
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="ui input col-4">
+                                          <input name = "temperature" type="text" placeholder="Temperature">
                                         </div>
-                                      </div>
+                                        <div class="ui input col-4">
+                                          <input name = "blood_pressure" type="text" placeholder="Blood Pressure">
+                                        </div>
+                                        <div class="ui input col-4">
+                                          <input name = "diabetics" type="text" placeholder="Diabetics">
+                                        </div>
+                                      </div><hr/>
                                     </div>
-                                  </li>
-                                </ul>
-                                <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
-                                  <div class="ui input col-12">
-                                    <input type="text" placeholder="Prescription" name = "description">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-
-                            <button type="submit" class="btn btn-primary h6">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Rideology">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Rideology
-                    </button>
-                  </div>
-                  <!-- Modal -->
-                  <form action="{{route('patient_add_rays',$clinic->id)}}" method="POST">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Rideology" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Rideology</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <ul class="list-unstyled">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-10 mr-auto ml-auto">
-                                        <div class="ui form col-12">
-                                          <div class="inline field">
-                                            <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Rideology</label>
-                                            <select name="name[]" multiple="" class="label ui large selection fluid dropdown">
-                                              <option value="">Choose .. </option>
-                                              @foreach($rays as $ray)
-                                                <option value="{{$ray->name}}">{{$ray->name}}</option>
-                                              @endforeach
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <select name = "jaw_type" class="ui selection dropdown">
+                                              <option value="">Type</option>
+                                              <option value="upper">Upper</option>
+                                              <option value="lower">Lower</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name = "jaw_direction" class="ui selection dropdown">
+                                                <option value="">Direaction</option>
+                                              <option value="right">Right</option>
+                                              <option value="left">left</option>
 
                                             </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name = "teeth_type" class="ui selection dropdown">
+                                              <option value="">3</option>
+                                              <option value="one">1</option>
+                                              <option value="two">2</option>
+                                              <option value="three">3</option>
+                                              <option value="four">4</option>
+                                              <option value="five">5</option>
+                                              <option value="six">6</option>
+                                            </select>
+                                        </div>
+                                      </div><hr/>
+                                    </div>
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="col-md-6 mr-auto ml-auto">
+                                            <select name = "eye_type" class="ui selection dropdown col-12">
+                                              <option value="">Eye type</option>
+                                              <option value="right">Right</option>
+                                              <option value="left">Left</option>
+                                            </select>
+                                        </div>
+                                      </div><hr/>
+                                    </div>
+                                    <ul class="list-unstyled mb-5">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
                                           </div>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                                <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
-                                  <div class="ui input col-12">
-                                    <input type="text" placeholder="Prescription">
+                                      </li>
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
+                              <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-secondary h6" data-dismiss="modal">Close</button> --}}
+                                <input type="submit" class="btn btn-primary h6" value="Save">
+                              </div>
                             </div>
                           </div>
-                          <div class="modal-footer">
-
-                            <button type="submit" class="btn btn-primary h6">Save changes</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Testing">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Test
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <form action = "{{route('patient_clinic_add_analzes',$clinic->id)}}" method = "POST">
+                          {{csrf_field()}}
+                          <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Test</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <ul class="list-unstyled">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-10 mr-auto ml-auto">
+                                            <div class="ui form col-12">
+                                              <div class="inline field">
+                                                <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Test</label>
+                                                <select name="name" multiple="" class="label ui large selection fluid dropdown">
+                                                  <option value="">Chooste</option>
+                                                  @foreach($analyzes as $analz)
+                                                    <option value="{{$analz->name}}">{{$analz->name}}</option>
+                                                  @endforeach
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                    <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
+                                      <div class="ui input col-12">
+                                        <input type="text" placeholder="Prescription" name = "description">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary h6">Save changes</button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
-                  </form>
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Rideology">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Rideology
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <form action="{{route('patient_clinic_add_rays',$clinic->id)}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Rideology" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Rideology</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <ul class="list-unstyled">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-10 mr-auto ml-auto">
+                                            <div class="ui form col-12">
+                                              <div class="inline field">
+                                                <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Rideology</label>
+                                                <select name="name[]" multiple="" class="label ui large selection fluid dropdown">
+                                                  <option value="">Choose .. </option>
+                                                  @foreach($rays as $ray)
+                                                    <option value="{{$ray->name}}">{{$ray->name}}</option>
+                                                  @endforeach
+
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                    <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
+                                      <div class="ui input col-12">
+                                        <input type="text" placeholder="Prescription">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary h6">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                 </div>
-            </div>
                 <div class="row pt-5">
                   <div class="col-xl-4 col-md-4 col-xs-12">
                     <div class="card card-stats">
@@ -774,7 +775,14 @@
     @include('backEnd.layoutes.footer')
     <!-- footer -->
     </div>
+</div>
+@else
+<!-- container -->
+  <div class="container">
+    <p class="alert alert-danger mb-4">Sorry, there is no data</p>
   </div>
+  <!-- container -->
+@endif
 
 
 

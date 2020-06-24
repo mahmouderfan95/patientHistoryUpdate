@@ -15,7 +15,7 @@ class CreatePatientDataTable extends Migration
     {
         Schema::create('patient_data', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('width');
+            $table->string('width');
             $table->integer('height');
             $table->string('blood');
             $table->string('agree_name')->nullable();

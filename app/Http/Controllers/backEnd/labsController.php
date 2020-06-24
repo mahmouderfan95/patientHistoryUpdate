@@ -12,6 +12,8 @@ use Auth;
 use Image;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\verifyLabs;
+use App\models\StorgeRays;
+use App\Http\Requests\backEnd\stogreAnalzes;
 class labsController extends Controller
 {
     public function register(){
@@ -39,13 +41,22 @@ class labsController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'labs';
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
+        $request_data['is_active'] = false;
         /* insert data */
         $lab_create = Lab::create($request_data);
-        /* send mail */
-        Mail::to($lab_create->email)->send(new verifyLabs($lab_create));
+        // /* send mail */
+        // Mail::to($lab_create->email)->send(new verifyLabs($lab_create));
         // return redirct //
-        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
+        return redirect()->route('labs_verify',compact('lab_create'));
     }
+    /* function send email */
+    public function sendEmail($id){
+        $labs = Lab::findOrFail($id);
+        Mail::to($labs->email)->send(new verifyLabs($labs));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+    /* end of function send email */
     public function verifyLabs($id){
         $labs = Lab::findOrFail($id);
         $labs->verify = 1;
@@ -100,4 +111,14 @@ class labsController extends Controller
         }
     }
     /* function search patient form phone number */
+    public function addStorgeRays($id,stogreAnalzes $request){
+        $request_data = $request->all();
+        if($files=$request->file('name')){
+            $name=$files->getClientOriginalName();
+            $files->move(public_path('uploads/pdf_file/rays/'),$name);
+        }
+
+        StorgeRays::create($request_data);
+        return redirect()->back()->with(['successMsg'=> 'file Uploded Success']);
+    }
 }

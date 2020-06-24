@@ -18,8 +18,13 @@ use Auth;
 
 class patienController extends Controller
 {
-    // protected $redirectTo = '/patien';
-    // protected $guard = 'patien';
+    // use AuthenticatesUsers;
+    // // protected $redirectTo = '/patien';
+    // // protected $guard = 'patien';
+    // public function username()
+    //     {
+    //         return 'phoneNumber';
+    //     }
     public function register(){
         return view('backEnd.patien.register');
     }
@@ -37,6 +42,7 @@ class patienController extends Controller
         }
         /* secure password */
         $request_data['password'] = bcrypt($request->password);
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
         // role = patient //
         $request_data['role'] = 'patient';
         $request_data['is_active'] = false;
@@ -46,10 +52,6 @@ class patienController extends Controller
         $patienData = Patien::create($request_data);
         // return redirect()->route();
         return redirect()->route('patient_verify',compact('patienData'));
-
-        /* send email verifaction */
-
-        /* send email verifaction */
     }
     /* end of function */
     /* function send email */
@@ -58,7 +60,6 @@ class patienController extends Controller
         Mail::to($patient->email)->send(new verify_patien($patient));
         return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
     }
-
     /* end of function send email */
     /* function verify email */
     public function verifyPatient($id){
@@ -69,9 +70,6 @@ class patienController extends Controller
         return redirect()->route('edit.profile',$patient->id);
     }
     /* function verify email */
-
-
-
     public function profile($id){
         $patient = Patien::with('patinets_data')->findOrFail($id);
         // dd($patient->with('patinets_data'));
@@ -95,7 +93,7 @@ class patienController extends Controller
             /* foreach data and insert request */
             foreach($request->allergi_name as $item=> $v){
                 $data2 = [
-                    'width'       => $request->width,
+                    'width'       => $request->width . $request->width_type ,
                     'height'       => $request->height,
                     'blood'         => $request->blood,
                     'agree_name'    => json_encode($request->agree_name),
@@ -182,6 +180,11 @@ class patienController extends Controller
 
     public function verfi(){
         return view('backEnd.layoutes.verficationCode');
+    }
+
+    public function getOldpescription($id){
+        $patient = Patien::with(['Raoucheh','patient_analzes','patient_rays'])->findOrFail($id);
+        return view('backEnd.patien.old_pescription',compact('patient'));
     }
 
 }

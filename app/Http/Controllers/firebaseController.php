@@ -8,6 +8,7 @@ use App\models\Hosptail;
 use App\models\Clinic;
 use App\models\Xray;
 use App\models\Lab;
+use App\models\pharmacy;
 
 class firebaseController extends Controller
 {
@@ -22,6 +23,7 @@ class firebaseController extends Controller
     public function verifcationCode(Request $request ,$id){
         $patient = Patien::findOrFail($id);
         $patient->is_active = true;
+        $patient->phoneNumber = str_replace('+','p',$patient->phoneNumber);
         $patient->save();
         return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
 
@@ -39,11 +41,9 @@ class firebaseController extends Controller
     public function verifcationCodeHosptail($id){
         $hosptail = Hosptail::findOrFail($id);
         $hosptail->is_active = true;
+        $hosptail->phoneNumber = str_replace('+','h',$hosptail->phoneNumber);
         $hosptail->save();
-        return response()->json([
-            'status'=> true,
-            'id'    => $hosptail->id
-        ]);
+        return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
     }
     /* end of function verifcation code */
 
@@ -58,11 +58,9 @@ class firebaseController extends Controller
     public function verifcationCodeClinic($id){
         $clinic = Clinic::findOrFail($id);
         $clinic->is_active = true;
+        $clinic->phoneNumber = str_replace('+','c',$clinic->phoneNumber);
         $clinic->save();
-        return response()->json([
-            'status'=> true,
-            'id'    => $clinic->id
-        ]);
+        return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
     }
     /* end of function verifcation code */
 
@@ -77,11 +75,9 @@ class firebaseController extends Controller
     public function verifcationCodeXray($id){
         $xray = Xray::findOrFail($id);
         $xray->is_active = true;
+        $xray->phoneNumber = str_replace('+','x',$xray->phoneNumber);
         $xray->save();
-        return response()->json([
-            'status'=> true,
-            'id'    => $xray->id
-        ]);
+        return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
     }
     /* end of function verifcation code */
 
@@ -96,11 +92,25 @@ class firebaseController extends Controller
     public function verifcationCodeLabs($id){
         $labs = Lab::findOrFail($id);
         $labs->is_active = true;
+        $labs->phoneNumber = str_replace('+','l',$labs->phoneNumber);
         $labs->save();
-        return response()->json([
-            'status'=> true,
-            'id'    => $labs->id
-        ]);
+        return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
+    }
+    /* end of function verifcation code */
+    /* function show form verify */
+    public function pharmacy_verify($id){
+        $pharmacy = Pharmacy::findOrFail($id);
+        return view('testVerify.pharmacy_verify',compact('pharmacy'));
+    }
+    /* end of function */
+
+    /* verifcation code */
+    public function verifcationCodepharmacy($id){
+        $pharmacy = Pharmacy::findOrFail($id);
+        $pharmacy->is_active = true;
+        $pharmacy->save();
+        $pharmacy->phoneNumber = str_replace('+','y',$patient->phoneNumber);
+        return redirect()->route('indexRoute')->with(['activeMsg'=> 'Your Account is active']);
     }
     /* end of function verifcation code */
 }

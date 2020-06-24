@@ -108,10 +108,19 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @if(session('successMsg'))
+                      <div class="alert-success">{{session('successMsg')}}</div>
+                    @endif
+                    <form action="{{route('patient_storge_rays',$patient->id)}}" method="POST" enctype="multipart/form-data">
+                      {{ csrf_field() }}
+                      <input type="hidden" name="patient_id" value="{{$patient->id}}">
                     <div class="modal-body">
                       <div class="col-md-12 mr-auto ml-auto">
                         <div class="ui fluid segment p-4">
-                          <input type="file" (change)="fileEvent($event)" class="inputfile" id="embedpollfileinput" />
+                          <input name = "name" type="file" (change)="fileEvent($event)" class="inputfile" id="embedpollfileinput" />
                           <label for="embedpollfileinput" class="ui m--3 medium red right button">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                             Upload File
@@ -120,8 +129,9 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary h6">Upload</button>
+                      <button type="submit" class="btn btn-primary h6">Upload</button>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>

@@ -36,6 +36,8 @@ Route::group(
             Route::get('/verifyCode','backEndController@verify');
             Route::post('/verifyCode','backEndController@postVerify')->name('postVerify');
             Route::get('/ver','patienController@verfi');
+            /* old pescription route */
+            Route::get('/patien/old_pescription/{id}','patienController@getOldpescription')->name('get_old_pescription');
             /* patient routes */
             /* clinic routes */
             Route::get('/clinic/register','clinicController@register')->name('clinicRegister');
@@ -49,6 +51,7 @@ Route::group(
             Route::post('/clinic/{id}/analazes','clinicController@patient_add_analzes')->name('patient_clinic_add_analzes');
             Route::post('/clinic/{id}/rays','clinicController@patient_add_rays')->name('patient_clinic_add_rays');
             Route::get('/clinic/verify/{id}','clinicController@verifyClinic')->name('verifyClinic');
+            Route::get('/clinic/sendEmail/{id}','clinicController@sendEmail')->name('clinic_send_email');
             /* clinic routes */
             /* hosptail routes */
             Route::get('/hosptail/register','hosptailController@register')->name('hosptailRegister');
@@ -62,6 +65,7 @@ Route::group(
             Route::post('/hosptail/{id}/analazes','hosptailController@patient_add_analzes')->name('patient_add_analzes');
             Route::post('/hosptail/{id}/rays','hosptailController@patient_add_rays')->name('patient_add_rays');
             Route::get('/hosptail/verify/{id}','hosptailController@verifyhosptail')->name('verifyhosptail');
+            Route::get('/hosptail/sendEmail/{id}','hosptailController@sendEmail')->name('hosptail_send_email');
             /* hosptail routes */
             /* xray routes */
             Route::get('/xray/register','xrayController@register')->name('xrayRegister');
@@ -72,6 +76,8 @@ Route::group(
             Route::get('/xray/logout','xrayController@logout')->name('xray.logout');
             Route::get('/xray/{id}/patient/search','xrayController@search')->name('xray.patient.search')->middleware('is_xray');
             Route::get('/xray/verify/{id}','xrayController@verifyXray')->name('verifyXray');
+            Route::get('/xray/sendEmail/{id}','xrayController@sendEmail')->name('xray_send_email');
+            Route::post('/xray/add/analzes/{id}','xrayController@addStorgeAnalzes')->name('patient_storge_analzes');
             /* xray routes */
             /* labs routes */
             Route::get('/labs/register','labsController@register')->name('labsRegister');
@@ -82,6 +88,8 @@ Route::group(
             Route::get('/labs/logout','labsController@logout')->name('labs.logout');
             Route::get('/labs/{id}/patient/search','labsController@search')->name('labs.patient.search')->middleware('is_lab');
             Route::get('/labs/verify/{id}','labsController@verifyLabs')->name('verifyLabs');
+            Route::get('/labs/sendEmail/{id}','labsController@sendEmail')->name('labs_send_email');
+            Route::post('/labs/add/rays/{id}','labsController@addStorgeRays')->name('patient_storge_rays');
             /* labs routes */
             /* pharmacy routes */
             Route::get('/pharmacy/register','pharmacyController@register')->name('pharmacyRegister');
@@ -92,6 +100,7 @@ Route::group(
             Route::get('/pharmacy/logout','pharmacyController@logout')->name('pharmacy.logout');
             Route::get('/pharmacy/{id}/patient/search','pharmacyController@search')->name('pharmacy.patient.search')->middleware('is_pharmacy');
             Route::get('/pharmacy/verify/{id}','pharmacyController@verifyPharmacy')->name('verifyPharmacy');
+            Route::get('/pharmacy/sendEmail/{id}','pharmacyController@sendEmail')->name('pharmacy_send_email');
             // Route::get('/pharmacy/{id}/patient/getroacata','pharmacyController@getLastRoacata')->name('get.last.roacata');
             /* pharmacy routes */
             /* login route */
@@ -99,15 +108,18 @@ Route::group(
             /* login route */
             /* check your email page */
             Route::get('/check/email','backEndController@checkEmail')->name('checkEmail');
+            /* reset password */
+            Route::get('/forgot/password','backEndController@forgotPassword')->name('forgot_password');
+            Route::post('/forgot/password','backEndController@post_forgot_password')->name('post_forgot_password');
+            Route::get('/update/password/{role}','backEndController@update_new_password')->name('update_new_password_page');
+            Route::post('/update/password','backEndController@post_update_new_password')->name('post_update_new_password_page');
+            /* reset password */
 
 
         });
     });
 
-/* social media routes */
-Route::get('login/{provider}', 'socialController@redirectToProvider')->middleware('web');
-Route::get('login/{provider}/callback','socialController@handleProviderCallback')->middleware('web');
-/* social media routes */
+
 /* admin routes */
 
 

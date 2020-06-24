@@ -40,14 +40,24 @@ class pharmacyController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'pharmacy';
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
+        $request_data['is_active'] = false;
         /* insert data */
         $pharmacy_create = Pharmacy::create($request_data);
-        /* send mail */
-        Mail::to($pharmacy_create->email)->send(new verifyPharmacy($pharmacy_create));
+        // /* send mail */
+        // Mail::to($pharmacy_create->email)->send(new verifyPharmacy($pharmacy_create));
         // return redirct //
-        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
+        return redirect()->route('pharmacy_verify',compact('pharmacy_create'));
+
     }
     /* end of function */
+    /* function send email */
+    public function sendEmail($id){
+        $pharmacy = Pharmacy::findOrFail($id);
+        Mail::to($pharmacy->email)->send(new pharmacy_verify($labs));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+    /* end of function send email */
     public function verifyPharmacy($id){
         $pharmacy = Pharmacy::findOrFail($id);
         $pharmacy->verify = 1;

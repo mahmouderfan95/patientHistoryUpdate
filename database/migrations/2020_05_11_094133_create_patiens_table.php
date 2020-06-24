@@ -29,6 +29,7 @@ class CreatePatiensTable extends Migration
             $table->string('role');
             $table->boolean('verify')->default(false);
             $table->boolean('is_active')->default(false);
+            $table->boolean('online')->default(false);
             $table->timestamps();
         });
     }

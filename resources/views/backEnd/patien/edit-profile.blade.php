@@ -13,13 +13,23 @@
                     <!-- Navbar links -->
                     <button class="btn btn-primary d-lg-none ml-2" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
                     <!-- Search form -->
-                    <ul class="float-lg-right pr-3">
-                    <div class="toggle toggle__wrapper">
-                        <div id="toggle-example-1" role="switch" aria-checked="false" class="toggle__button">
-                        <div class="toggle__switch"></div>
-                        </div>
-                    </div>
-                    </ul>
+                    <!-- form edit profile -->
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @if(session('msgUpdate'))
+                        <div class="alert alert-success">{{session('msgUpdate')}}</div>
+                    @endif
+                    
+                        <ul class="float-lg-right pr-3">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="online" class="onoffswitch-checkbox" id="myonoffswitch" onclick="myFunction();">
+                                <label class="onoffswitch-label" for="myonoffswitch">
+                                    <div class="onoffswitch-inner"></div>
+                                    <div class="onoffswitch-switch"></div>
+                                </label>
+                            </div>
+                        </ul>
                     <h6 class="h5 text-white">Privacy</h6>
                     <ul class="navbar-nav align-items-center ml-md-auto">
                     <li class="nav-item dropdown">
@@ -163,14 +173,7 @@
                     </div>
                     </div>
                     <div class="card-body">
-                    <!-- form edit profile -->
-                    @foreach($errors->all() as $error)
-                        <div class="alert alert-danger">{{$error}}</div>
-                    @endforeach
-                    @if(session('msgUpdate'))
-                        <div class="alert alert-success">{{session('msgUpdate')}}</div>
-                    @endif
-                    <form action="{{route('update.profile',$patient->id)}}" method="POST">
+                        <form action="{{route('update.profile',$patient->id)}}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="patient_id" value = "{{$patient->id}}">
                         <h3 class="title-sub text-uppercase text-muted mb-4">User information</h3>
@@ -181,15 +184,21 @@
                                 <li>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                    <label class="title-label ml-xl-3">Weight</label>
-                                    <div class="ui input col-12">
-                                        <input class="" type="text" name="width" placeholder="70k.g" value = "{{$patient->width}}">
-                                    </div>
+                                        <label class="title-label ml-xl-3">Weight</label>
+                                        <div class="width">
+                                            <select name="width_type" class="ui selection dropdown zindex">
+                                                <option value="pound">Pound</option>
+                                                <option value="kg">KG</option>
+                                            </select>
+                                            <div class="ui input margin-select" >
+                                                <input name = "width" type="text" class="pl-20" placeholder="80"/>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                     <label class="title-label ml-xl-3">Height</label>
                                     <div class="ui input col-12">
-                                        <input class="" type="text" name="height" placeholder="170cm" value="{{$patient->height}}">
+                                        <input class="" type="text" name="height" placeholder="170cm">
                                     </div>
                                     </div>
                                     <div class="col-md-4">

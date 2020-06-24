@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\Hosptail;
 use App\models\Patien;
-use App\models\patientAnalazes;
+use App\models\patient_analzes;
 use App\models\patient_rays;
 // use App\models\patient_rays;
 use App\models\Raoucheh;
@@ -50,15 +50,24 @@ class hosptailController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'hosptail';
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
+        $request_data['is_active'] = false;
         /* insert data */
         $hosptail_create = Hosptail::create($request_data);
-        /* send mail */
-         Mail::to($hosptail_create->email)->send(new verifyHosptail($hosptail_create));
-
+        return redirect()->route('hosptail_verify',compact('hosptail_create'));
+        // /* send mail */
+        //  Mail::to($hosptail_create->email)->send(new verifyHosptail($hosptail_create));
         // return redirct //
         return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
     /* function hosptail */
+    /* function send email */
+    public function sendEmail($id){
+        $hosptail = Hosptail::findOrFail($id);
+        Mail::to($patient->email)->send(new verifyHosptail($hosptail));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+    /* end of function send email */
     /* function verify hosptail */
     public function verifyHosptail($id){
         $hosptail = Hosptail::findOrFail($id);
@@ -99,11 +108,11 @@ class hosptailController extends Controller
     /* function search patient form phone number */
     public function search($id,Request $request){
         $hosptail = Hosptail::findOrFail($id);
-        $analyses = analyzes::get();
+        $analyzes = analyzes::get();
         $rays = Rays::get();
-        $patient = Patien::with(['patientAnalzazes','patient_rays'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        $patient = Patien::with(['patient_analzes','patient_rays'])->where('phoneNumber','like','%' . $request->search . '%')->first();
         if($patient){
-            return view('backEnd.hosptail.search-patient',compact('patient','hosptail','analyses','rays'));
+            return view('backEnd.hosptail.search-patient',compact('patient','hosptail','analyzes','rays'));
         }else{
             return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
         }
@@ -157,7 +166,7 @@ class hosptailController extends Controller
                 ];
             }
         }
-        $request_create = patientAnalazes::create($data);
+        $request_create = patient_analzes::create($data);
         return redirect()->route('hosptail.patient.search',$hosptail->id);
     }
 

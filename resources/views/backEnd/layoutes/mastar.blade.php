@@ -54,13 +54,13 @@
         <script src="{{url('js/lib/jquery-scrollLock.min.js')}}"></script>
 
         <script src="{{url('js/semantic.min.js')}}"></script>
-
         <script src="{{url('js/wow.min.js')}}"></script>
         <script>new WOW().init();</script>
-
         <script src="{{url('js/main.js')}}"></script>
         <script src="{{url('js/typed.js')}}"></script>
+        <script src="{{url('js/typed.js')}}"></script>
         <script src="{{url('js/firebase.js')}}"></script>
+        
 
 
 

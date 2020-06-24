@@ -1,10 +1,14 @@
 @extends('backEnd.layoutes.mastar')
 @section('title','Profile')
 @section('content')
+@include('backEnd.patien.slidenav')
 <!-- profile patient -->
   <!-- Main content -->
+  @php 
+  $count = $patient->patinets_data->count(); 
+  @endphp
+  @if($count > 0)
   <div class="d-flex bg-page" id="wrapper">
-    @include('backEnd.patien.slidenav')
     <div id="page-content-wrapper">
     <!-- Topnav -->
     <nav class="navbarp navbar-top navbar-expand navbar-dark border-bottom">
@@ -81,7 +85,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="media align-items-center">
-                    <span class="avatar avatar-sm rounded-circle">
+                    <span class="avatar avatar-sm rounded-circle"> 
                       <img alt="Image placeholder" src="{{url('uploads/patien/' . $patient->image)}}">
                     </span>
                     <div class="media-body ml-3 mr-3 d-lg-block">
@@ -124,7 +128,7 @@
                         <div class="row">
                           <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-3">Weight</h5>
-                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}} Kg</span>
+                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}}</span>
                           </div>
                           <div class="col-auto">
                             <div>
@@ -361,212 +365,229 @@
         <div class="pill-box-f p-4 align-items-center js-fullheight animated">
             <div class="tab-content mr-auto ml-auto" id="v-pills-tabContent">
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4 show active" id="v-pills-01" role="tabpanel" aria-labelledby="v-pills-01-tab">
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                  @php
+                    $mother = json_decode($patient->patinets_data->mother);
+                    $father = json_decode($patient->patinets_data->father);
+                    $sister = json_decode($patient->patinets_data->sister);
+                    $brother = json_decode($patient->patinets_data->mother);
+                    $grandpaf = json_decode($patient->patinets_data->grnadpaF);
+                    $grandpam = json_decode($patient->patinets_data->grnadpaM);
+                    $grandmaf = json_decode($patient->patinets_data->grandmaF);
+                    $grandmam = json_decode($patient->patinets_data->grnadmaM);
+                    @endphp
+                    @if($mother > 0)
+                    @foreach($mother as $mother)
+                    <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                        <div class="col-2">
+                            <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                        </div>
+                        <div class="col-8">
+                          <h6 class="mt-4">{{$mother}}</h6>
+                        </div>
                     </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    @endforeach
+                    @else
+                    <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                        <div class="col-2">
+                            <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                        </div>
+                        <div class="col-8">
+                          <h6 class="mt-4">No Data</h6>
+                        </div>
                     </div>
+                    @endif    
                 </div>
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                </div>
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-02" role="tabpanel" aria-labelledby="v-pills-02-tab">
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                  @if($father > 0)
+                  @foreach($father as $father)
+                  <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="..."> 
+                      </div>
+                      <div class="col-8">
+                        <h6 class="mt-4">{{$father}}</h6>
+                      </div>
                     </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    @endforeach
+                    @else 
+                    <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="..."> 
+                      </div>
+                      <div class="col-8">
+                        <h6 class="mt-4">No Data</h6>
+                      </div>
                     </div>
+                    @endif
                 </div>
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-03" role="tabpanel" aria-labelledby="v-pills-03-tab">
+                @if($sister > 0)
+                @foreach($sister as $sister)
                 <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">{{$sister}}</h6>
                     </div>
                 </div>
+                @endforeach
+                @else 
                 <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">No Data</h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
+                @endif
                 </div>
-                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-04" role="tabpanel" aria-labelledby="v-pills-04-tab">
+                @if($brother > 0)
+                @foreach($brother as $brother)
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">{{$brother}}</h6>
                     </div>
                 </div>
+                @endforeach
+                @else
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">No Data</h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
+                @endif
                 </div>
-                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-05" role="tabpanel" aria-labelledby="v-pills-05-tab">
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
+                  @if($grandmam >0)
+                  @foreach($grandmam as $grandmam)
+                  <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                          <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      </div>
+                      <div class="col-8">
+                          <h6 class="mt-4">{{$grandmam}}</h6>
+                      </div>
+                  </div>
+                  @endforeach
+                  @else 
+                   <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                          <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      </div>
+                      <div class="col-8">
+                          <h6 class="mt-4">No Data</h6>
+                      </div>
+                  </div>
+                  @endif
                 </div>
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @if($grandmaf > 0)
+                @foreach($grandmaf as $grandmaf)
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                        <h6 class="mt-4">{{$grandmaf}}/h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @endforeach
+                @else 
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
+                        <h6 class="mt-4">No Data </h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @endif
+                </div>
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
+                @if($grandmaf > 0)
+                @foreach($grandmaf as $grandmaf)
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                        <h6 class="mt-4">{{$grandmaf}}/h6>
                     </div>
                 </div>
+                @endforeach
+                @else 
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <h6 class="mt-4">No Data </h6>
+                    </div>
+                </div>
+                @endif
+                
                 </div>
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-07" role="tabpanel" aria-labelledby="v-pills-07-tab">
-                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @if($grandpam > 0)
+                @foreach($grandpam as $grandpam)
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">{{$grandpam}}</h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @endforeach
+                @else
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">No Data</h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
+                @endif
                 </div>
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-08" role="tabpanel" aria-labelledby="v-pills-08-tab">
+                @if($grandpaf > 0)
+                @foreach($grandpaf as $grandpaf)
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">{{$grandpaf}}</h6>
                     </div>
                 </div>
+                @endforeach
+                @else
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                        <img src="imgs/01.png" width="60" alt="...">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                        <h6 class="mt-4">High Blood Pressure</h6>
+                    <h6 class="mt-4">No Data</h6>
                     </div>
                 </div>
-                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">High Blood Pressure</h6>
-                    </div>
-                </div>
+                @endif
                 </div>
             </div>
         </div>
@@ -578,6 +599,13 @@
     <!-- footer -->
     </div>
   </div>
+  @else 
+  <!-- container -->
+  <div class="container">
+    <p class="alert alert-danger mb-4">Sorry, there is no data</p>
+  </div>
+  <!-- container -->
+  @endif
 
 
 

@@ -1,6 +1,7 @@
 @extends('backEnd.layoutes.mastar')
 @section('title','Update password')
 @section('content')
+@include('backEnd.layoutes.navbar')
 <div class="container">
     <form action="{{route('post_update_password')}}" method="POSt" class="mt-4">
         {{ csrf_field() }}

@@ -3,8 +3,12 @@
 @section('content')
 @include('backEnd.hosptail.sidenav')
 <!-- Main content -->
+@php 
+  $count = $patient->patinets_data->count(); 
+@endphp
+<!-- check if isset profile -->
+@if($count > 0)
 <div class="d-flex bg-page" id="wrapper">
-    @include('backEnd.patien.slidenav')
     <div id="page-content-wrapper">
     <!-- Topnav -->
     <nav class="navbarp navbar-top navbar-expand navbar-dark border-bottom">
@@ -81,7 +85,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="media align-items-center">
-                    <span class="avatar avatar-sm rounded-circle">
+                    <span class="avatar avatar-sm rounded-circle"> 
                       <img alt="Image placeholder" src="{{url('uploads/patien/' . $patient->image)}}">
                     </span>
                     <div class="media-body ml-3 mr-3 d-lg-block">
@@ -98,307 +102,309 @@
         <div class="header img-header pb-6">
             <div class="container-fluid">
               <div class="header-body">
-                  <div class="row pt-5">
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Prescription">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Prescription
-                    </button>
-                  </div>
-                  @if(session('roacataMsg'))
-                  <div class="alert alert-success">{{session('roacataMsg')}}</div>
-                  @endif
-                  <!-- Modal -->
-                  <form action = "{{route('store_hosptail_Raoucata',$hosptail->id)}}" method="POST">
-                      {{ csrf_field() }}
-                      <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Prescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Prescription</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12 mr-auto ml-auto">
-                              <div class="form-group">
-                                <div class="col-xl-9 col-md-4 mt-3 mr-auto ml-auto mb-5">
-                                  <div class="ui input col-12">
-                                    <input name = "prescription" type="text" placeholder="prescription">
-                                  </div>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="ui input col-4">
-                                      <input name = "temperature" type="text" placeholder="Temperature">
-                                    </div>
-                                    <div class="ui input col-4">
-                                      <input name = "blood_pressure" type="text" placeholder="Blood Pressure">
-                                    </div>
-                                    <div class="ui input col-4">
-                                      <input name = "diabetics" type="text" placeholder="Diabetics">
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="col-md-4">
-                                        <select name = "jaw_type" class="ui selection dropdown">
-                                          <option value="">Type</option>
-                                          <option value="upper">Upper</option>
-                                          <option value="lower">Lower</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select name = "jaw_direction" class="ui selection dropdown">
-                                            <option value="">Direaction</option>
-                                          <option value="right">Right</option>
-                                          <option value="left">left</option>
-
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select name = "teeth_type" class="ui selection dropdown">
-                                          <option value="">3</option>
-                                          <option value="one">1</option>
-                                          <option value="two">2</option>
-                                          <option value="three">3</option>
-                                          <option value="four">4</option>
-                                          <option value="five">5</option>
-                                          <option value="six">6</option>
-                                        </select>
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <div div class="col-xl-11 col-md-4 mb-5 text-center">
-                                  <div class="row mb-4">
-                                    <div class="col-md-6 mr-auto ml-auto">
-                                        <select name = "eye_type" class="ui selection dropdown col-12">
-                                          <option value="">Eye type</option>
-                                          <option value="right">Right</option>
-                                          <option value="left">Left</option>
-                                        </select>
-                                    </div>
-                                  </div><hr/>
-                                </div>
-                                <ul class="list-unstyled mb-5">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-5">
-                                        <label class="title-label d-block">Medication</label>
-                                          <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Times Day</label>
-                                          <select name = "times_day[]" class="ui selection dropdown">
-                                            <option value="">Times day</option>
-                                            <option value="one">1</option>
-                                            <option value="two">2</option>
-                                            <option value="three">3</option>
-                                            <option value="if_necessity">If necessity</option>
-
-                                          </select>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <label class="title-label d-block">Time</label>
-                                          <select name = "time[]" class="ui selection dropdown">
-                                            <option value="">Time</option>
-                                            <option value="before_eating">Before Eating</option>
-                                            <option value="after_eating">After Eating</option>
-                                          </select>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            {{-- <button type="button" class="btn btn-secondary h6" data-dismiss="modal">Close</button> --}}
-                            <input type="submit" class="btn btn-primary h6" value="Save">
-                          </div>
-                        </div>
+                <!-- add pescription and rays and analzes -->
+                <div class="row pt-5">
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Prescription">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Prescription
+                        </button>
                       </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Testing">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Test
-                    </button>
-                  </div>
-                  <!-- Modal -->
-                  <form action = "{{route('patient_add_analzes',$hosptail->id)}}" method = "POST">
-                      {{csrf_field()}}
-                      <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Test</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <ul class="list-unstyled">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-10 mr-auto ml-auto">
-                                        <div class="ui form col-12">
-                                          <div class="inline field">
-                                            <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Test</label>
-                                            <select name="name" multiple="" class="label ui large selection fluid dropdown">
-                                              <option value="">Chooste</option>
-                                              @foreach($analyses as $analz)
-                                                <option value="{{$analz->name}}">{{$analz->name}}</option>
-                                              @endforeach
-                                            </select>
-                                          </div>
+                      @if(session('roacataMsg'))
+                      <div class="alert alert-success">{{session('roacataMsg')}}</div>
+                      @endif
+                      <!-- Modal -->
+                      <form action = "{{route('store_hosptail_Raoucata',$hosptail->id)}}" method="POST">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Prescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Prescription</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12 mr-auto ml-auto">
+                                  <div class="form-group">
+                                    <div class="col-xl-9 col-md-4 mt-3 mr-auto ml-auto mb-5">
+                                      <div class="ui input col-12">
+                                        <input name = "prescription" type="text" placeholder="prescription">
+                                      </div>
+                                    </div>
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="ui input col-4">
+                                          <input name = "temperature" type="text" placeholder="Temperature">
                                         </div>
-                                      </div>
+                                        <div class="ui input col-4">
+                                          <input name = "blood_pressure" type="text" placeholder="Blood Pressure">
+                                        </div>
+                                        <div class="ui input col-4">
+                                          <input name = "diabetics" type="text" placeholder="Diabetics">
+                                        </div>
+                                      </div><hr/>
                                     </div>
-                                  </li>
-                                </ul>
-                                <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
-                                  <div class="ui input col-12">
-                                    <input type="text" placeholder="Prescription" name = "description">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-
-                            <button type="submit" class="btn btn-primary h6">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                  <!-- Button trigger modal -->
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Rideology">
-                      <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Rideology
-                    </button>
-                  </div>
-                  <!-- Modal -->
-                  <form action="{{route('patient_add_rays',$hosptail->id)}}" method="POST">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                    <div class="modal fade" id="Rideology" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Rideology</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <ul class="list-unstyled">
-                                  <li>
-                                    <div class="row mb-3">
-                                      <div class="col-md-10 mr-auto ml-auto">
-                                        <div class="ui form col-12">
-                                          <div class="inline field">
-                                            <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Rideology</label>
-                                            <select name="name[]" multiple="" class="label ui large selection fluid dropdown">
-                                              <option value="">Choose .. </option>
-                                              @foreach($rays as $ray)
-                                                <option value="{{$ray->name}}">{{$ray->name}}</option>
-                                              @endforeach
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <select name = "jaw_type" class="ui selection dropdown">
+                                              <option value="">Type</option>
+                                              <option value="upper">Upper</option>
+                                              <option value="lower">Lower</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name = "jaw_direction" class="ui selection dropdown">
+                                                <option value="">Direaction</option>
+                                              <option value="right">Right</option>
+                                              <option value="left">left</option>
 
                                             </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name = "teeth_type" class="ui selection dropdown">
+                                              <option value="">3</option>
+                                              <option value="one">1</option>
+                                              <option value="two">2</option>
+                                              <option value="three">3</option>
+                                              <option value="four">4</option>
+                                              <option value="five">5</option>
+                                              <option value="six">6</option>
+                                            </select>
+                                        </div>
+                                      </div><hr/>
+                                    </div>
+                                    <div div class="col-xl-11 col-md-4 mb-5 text-center">
+                                      <div class="row mb-4">
+                                        <div class="col-md-6 mr-auto ml-auto">
+                                            <select name = "eye_type" class="ui selection dropdown col-12">
+                                              <option value="">Eye type</option>
+                                              <option value="right">Right</option>
+                                              <option value="left">Left</option>
+                                            </select>
+                                        </div>
+                                      </div><hr/>
+                                    </div>
+                                    <ul class="list-unstyled mb-5">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
                                           </div>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                                <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
-                                  <div class="ui input col-12">
-                                    <input type="text" placeholder="Prescription">
+                                      </li>
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-5">
+                                            <label class="title-label d-block">Medication</label>
+                                              <input type="text" name = "medication_name[]" class = "form-control" placeholder="Medication Name">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Times Day</label>
+                                              <select name = "times_day[]" class="ui selection dropdown">
+                                                <option value="">Times day</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="if_necessity">If necessity</option>
+
+                                              </select>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="title-label d-block">Time</label>
+                                              <select name = "time[]" class="ui selection dropdown">
+                                                <option value="">Time</option>
+                                                <option value="before_eating">Before Eating</option>
+                                                <option value="after_eating">After Eating</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
+                              <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-secondary h6" data-dismiss="modal">Close</button> --}}
+                                <input type="submit" class="btn btn-primary h6" value="Save">
+                              </div>
                             </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary h6" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary h6">Save changes</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Testing">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Test
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <form action = "{{route('patient_add_analzes',$hosptail->id)}}" method = "POST">
+                          {{csrf_field()}}
+                          <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Test</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <ul class="list-unstyled">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-10 mr-auto ml-auto">
+                                            <div class="ui form col-12">
+                                              <div class="inline field">
+                                                <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Test</label>
+                                                <select name="name" multiple="" class="label ui large selection fluid dropdown">
+                                                  <option value="">Chooste</option>
+                                                  @foreach($analyzes as $analz)
+                                                    <option value="{{$analz->name}}">{{$analz->name}}</option>
+                                                  @endforeach
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                    <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
+                                      <div class="ui input col-12">
+                                        <input type="text" placeholder="Prescription" name = "description">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary h6">Save changes</button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
-                  </form>
+                    <div class="col-xl-4 col-md-4">
+                      <!-- Button trigger modal -->
+                      <div class="text-center">
+                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Rideology">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Rideology
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <form action="{{route('patient_add_rays',$hosptail->id)}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <div class="modal fade" id="Rideology" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Rideology</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <ul class="list-unstyled">
+                                      <li>
+                                        <div class="row mb-3">
+                                          <div class="col-md-10 mr-auto ml-auto">
+                                            <div class="ui form col-12">
+                                              <div class="inline field">
+                                                <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Rideology</label>
+                                                <select name="name[]" multiple="" class="label ui large selection fluid dropdown">
+                                                  <option value="">Choose .. </option>
+                                                  @foreach($rays as $ray)
+                                                    <option value="{{$ray->name}}">{{$ray->name}}</option>
+                                                  @endforeach
+
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                    <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
+                                      <div class="ui input col-12">
+                                        <input type="text" placeholder="Prescription">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary h6">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                 </div>
-            </div>
+                
+                <!-- end add pescrption and rays and analazes -->
                 <div class="row pt-5">
                   <div class="col-xl-4 col-md-4 col-xs-12">
                     <div class="card card-stats">
@@ -425,7 +431,7 @@
                         <div class="row">
                           <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-3">Weight</h5>
-                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}} Kg</span>
+                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}}</span>
                           </div>
                           <div class="col-auto">
                             <div>
@@ -662,7 +668,7 @@
         <div class="pill-box-f p-4 align-items-center js-fullheight animated">
             <div class="tab-content mr-auto ml-auto" id="v-pills-tabContent">
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4 show active" id="v-pills-01" role="tabpanel" aria-labelledby="v-pills-01-tab">
-                    @php
+                  @php
                     $mother = json_decode($patient->patinets_data->mother);
                     $father = json_decode($patient->patinets_data->father);
                     $sister = json_decode($patient->patinets_data->sister);
@@ -672,56 +678,201 @@
                     $grandmaf = json_decode($patient->patinets_data->grandmaF);
                     $grandmam = json_decode($patient->patinets_data->grnadmaM);
                     @endphp
+                    @if($mother > 0)
                     @foreach($mother as $mother)
                     <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                        <div class="col-2">
+                            <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                        </div>
+                        <div class="col-8">
+                          <h6 class="mt-4">{{$mother}}</h6>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <h6 class="mt-4">{{$mother}}</h6>
+                    @endforeach
+                    @else
+                    <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                        <div class="col-2">
+                            <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                        </div>
+                        <div class="col-8">
+                          <h6 class="mt-4">No Data</h6>
+                        </div>
                     </div>
+                    @endif    
                 </div>
-                @endforeach
-                </div>
-                @foreach($father as $father)
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-02" role="tabpanel" aria-labelledby="v-pills-02-tab">
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                  @if($father > 0)
+                  @foreach($father as $father)
+                  <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="..."> 
+                      </div>
+                      <div class="col-8">
+                        <h6 class="mt-4">{{$father}}</h6>
+                      </div>
                     </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">{{$father}}</h6>
+                    @endforeach
+                    @else 
+                    <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="..."> 
+                      </div>
+                      <div class="col-8">
+                        <h6 class="mt-4">No Data</h6>
+                      </div>
                     </div>
+                    @endif
                 </div>
-                </div>
-                @endforeach
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-03" role="tabpanel" aria-labelledby="v-pills-03-tab">
-                    @foreach($sister as $sister)
-                    <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                @if($sister > 0)
+                @foreach($sister as $sister)
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
                     <h6 class="mt-4">{{$sister}}</h6>
                     </div>
                 </div>
                 @endforeach
+                @else 
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                    <h6 class="mt-4">No Data</h6>
+                    </div>
                 </div>
-                @foreach($brother as $brother)
+                @endif
+                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-04" role="tabpanel" aria-labelledby="v-pills-04-tab">
+                @if($brother > 0)
+                @foreach($brother as $brother)
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
-                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
                     <h6 class="mt-4">{{$brother}}</h6>
                     </div>
                 </div>
+                @endforeach
+                @else
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                      <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                    <h6 class="mt-4">No Data</h6>
+                    </div>
+                </div>
+                @endif
+                </div>
+                
+                
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-05" role="tabpanel" aria-labelledby="v-pills-05-tab">
+                  @if($grandmam >0)
+                  @foreach($grandmam as $grandmam)
+                  <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                          <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      </div>
+                      <div class="col-8">
+                          <h6 class="mt-4">{{$grandmam}}</h6>
+                      </div>
+                  </div>
+                  @endforeach
+                  @else 
+                   <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                      <div class="col-2">
+                          <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                      </div>
+                      <div class="col-8">
+                          <h6 class="mt-4">No Data</h6>
+                      </div>
+                  </div>
+                  @endif
+                </div>
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
+                @if($grandmaf > 0)
+                @foreach($grandmaf as $grandmaf)
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <h6 class="mt-4">{{$grandmaf}}/h6>
+                    </div>
                 </div>
                 @endforeach
+                @else 
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <h6 class="mt-4">No Data </h6>
+                    </div>
+                </div>
+                @endif
+                </div>
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
+                @if($grandmaf > 0)
+                @foreach($grandmaf as $grandmaf)
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <h6 class="mt-4">{{$grandmaf}}/h6>
+                    </div>
+                </div>
+                @endforeach
+                @else 
+                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                        <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <h6 class="mt-4">No Data </h6>
+                    </div>
+                </div>
+                @endif
+                
+                </div>
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-07" role="tabpanel" aria-labelledby="v-pills-07-tab">
+                @if($grandpam > 0)
+                @foreach($grandpam as $grandpam)
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                    <h6 class="mt-4">{{$grandpam}}</h6>
+                    </div>
+                </div>
+                @endforeach
+                @else
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                    <div class="col-2">
+                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
+                    </div>
+                    <div class="col-8">
+                    <h6 class="mt-4">No Data</h6>
+                    </div>
+                </div>
+                @endif
+                </div>
+                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-08" role="tabpanel" aria-labelledby="v-pills-08-tab">
+                @if($grandpaf > 0)
                 @foreach($grandpaf as $grandpaf)
-                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-05" role="tabpanel" aria-labelledby="v-pills-05-tab">
-                <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
+                <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
@@ -729,44 +880,18 @@
                     <h6 class="mt-4">{{$grandpaf}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
-                @foreach($grandpam as $grandpam)
-                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
-                <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="imgs/01.png" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">{{$grandpam}}</h6>
-                    </div>
-                </div>
-                </div>
-                @endforeach
-                @foreach($grandmaf as $grandmaf)
-                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-07" role="tabpanel" aria-labelledby="v-pills-07-tab">
-                <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
-                    <div class="col-2">
-                    <img src="{{url('imgs/01.png')}}" width="60" alt="...">
-                    </div>
-                    <div class="col-8">
-                    <h6 class="mt-4">{{$grandmaf}}</h6>
-                    </div>
-                </div>
-                </div>
-                @endforeach
-                @foreach($grandmam as $grandmam)
-                <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-08" role="tabpanel" aria-labelledby="v-pills-08-tab">
+                @else
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
                     </div>
                     <div class="col-8">
-                    <h6 class="mt-4">{{$grandmam}}</h6>
+                    <h6 class="mt-4">No Data</h6>
                     </div>
                 </div>
+                @endif
                 </div>
-                @endforeach
             </div>
         </div>
 
@@ -777,5 +902,12 @@
     <!-- footer -->
     </div>
   </div>
+  @else
+  <!-- container -->
+  <div class="container">
+    <p class="alert alert-danger mb-4">Sorry, there is no data</p>
+  </div>
+  <!-- container -->
+  @endif
 
 @stop

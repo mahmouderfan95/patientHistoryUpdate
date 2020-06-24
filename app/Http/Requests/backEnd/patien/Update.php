@@ -25,6 +25,7 @@ class Update extends FormRequest
     {
         return [
             'width' => 'required',
+            'width_type'    => 'required',
             'height'    => 'required',
             'blood'     => 'required',
             'agree_name'=> 'array',

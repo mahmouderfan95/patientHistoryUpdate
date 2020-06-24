@@ -176,3 +176,36 @@ myInput.onkeyup = function() {
 
 
 /* password validation */
+
+
+/* required input */
+$("<span class = 'star'>*</span>").insertBefore(":input[required]");
+
+/* custmize with jquery */
+
+$(".star").css({
+  "color":"red",
+  "font-size":"20px",
+  "position":"relative",
+  "top":"8px"
+});
+
+/* required input */
+
+/* online switch */ 
+
+
+// function myFunction() {
+//   // Get the checkbox
+//   var myCheckBox = document.getElementById("myonoffswitch");
+//       myCheckBox.attr("checked","checked");
+//   // Get the output text
+//   var checkboxVal = myCheckBox.value;
+
+//   // If the checkbox is checked, display the output text
+//   if (myCheckBox.checked == true){
+//     checkboxVal = 1;
+//   } else {
+//     checkboxVal = 0
+//   }
+// }

@@ -1,9 +1,8 @@
 @extends('backEnd.layoutes.mastar')
 @section('title',$patient->firstName . ' ' . $patient->middleName)
 @section('content')
-
+@include('backEnd.xray.slidenav')
 <div class="d-flex bg-page" id="wrapper">
-    @include('backEnd.xray.slidenav')
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbarp navbar-top navbar-expand navbar-dark border-bottom">
@@ -99,6 +98,9 @@
               </button>
             </div>
             <!-- Modal -->
+            @if(session('fileMsg'))
+                <div class="alert alert-success">{{session('fileMsg')}}</div>
+            @endif
               <div class="modal fade" id="Prescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
@@ -109,9 +111,18 @@
                       </button>
                     </div>
                     <div class="modal-body">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                    @if(session('successMsg'))
+                      <div class="alert alert-success">{{session('successMsg')}}</div>
+                    @endif
+                    <form enctype="multipart/form-data" action="{{route('patient_storge_analzes',$patient->id)}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="patient_id" value="{{$patient->id}}">
                       <div class="col-md-12 mr-auto ml-auto">
                         <div class="ui fluid segment p-4">
-                          <input type="file" (change)="fileEvent($event)" class="inputfile" id="embedpollfileinput" />
+                          <input name = "name" type="file" (change)="fileEvent($event)" class="inputfile" id="embedpollfileinput" />
                           <label for="embedpollfileinput" class="ui m--3 medium red right button">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                             Upload File
@@ -120,8 +131,9 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary h6">Upload</button>
+                      <button type="submit" class="btn btn-primary h6">Upload</button>
                     </div>
+                </form>
                   </div>
                 </div>
               </div>
@@ -165,18 +177,12 @@
                                 // $rays = json_decode($last_rays->name,true);
                             @endphp
                             <div class="col-8">
-                                    @foreach($last_rays as $rays)
-                                        @foreach($rays->patient_rays as $patient_ray)
-                                            <h5>{{$patient_ray->name}}</h5>
-                                        @endforeach
-                                    @endforeach
+                                  @foreach($last_rays as $rays)
+                                      @foreach($rays->patient_rays as $patient_ray)
+                                          <h5>{{$patient_ray->name}}</h5>
+                                      @endforeach
+                                  @endforeach
                             </div>
-                            {{-- <div class="col-4">
-                              <h5 class="font-weight-bold"></h5>
-                            </div>
-                            <div class="col-8">
-                              <h5 class="">High Blood Pressure</h5>
-                            </div> --}}
                           </div>
                         </div>
                       </div>
@@ -189,6 +195,7 @@
       </div>
     @include('backEnd.layoutes.footer')
 </div>
+
 
 
 @stop

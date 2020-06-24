@@ -9,7 +9,7 @@ use App\models\Patien;
 use App\models\API\Rays;
 use App\models\API\analyzes;
 use App\models\patient_rays;
-use App\models\patientAnalazes;
+use App\models\patient_analzes;
 use App\models\Raoucheh;
 use App\Http\Requests\backEnd\clinic\Store;
 use App\Http\Requests\backEnd\clinic\Update;
@@ -49,14 +49,22 @@ class clinicController extends Controller
         $request_data['password'] = bcrypt($request->password);
         // role = patient //
         $request_data['role'] = 'clinic';
+        $request_data['phoneNumber'] = $request->countryCode . $request->phoneNumber;
+        $request_data['is_active'] = false;
         /* insert data */
         $clinic_create = Clinic::create($request_data);
-        /* send mail */
-        Mail::to($clinic_create->email)->send(new verifyClinic($clinic_create));
-
+        // /* send mail */
+        // Mail::to($clinic_create->email)->send(new verifyClinic($clinic_create));
+        return redirect()->route('clinic_verify',compact('clinic_create'));
         // return redirct //
-        return redirect()->back()->with(['verifyMsg'=>'Check Your Email']);
     }
+    /* function send email */
+    public function sendEmail($id){
+        $clinic = Clinic::findOrFail($id);
+        Mail::to($clinic->email)->send(new verifyClinic($clinic));
+        return redirect()->back()->with(['EmailMsg'=>'Check Your Email']);
+    }
+    /* end of function send email */
     /* function verify clinic */
     public function verifyClinic($id){
         $clinic = Clinic::findOrFail($id);
@@ -149,7 +157,7 @@ class clinicController extends Controller
 
     /* end of function */
     public function patient_add_analzes($id,StoreAnalaz $request){
-        // dd($request->all());
+        //dd($request->all());
         $clinic = Clinic::findOrFail($id);
         $request_data = $request->all();
         if(count($request->name) > 0){
@@ -163,7 +171,7 @@ class clinicController extends Controller
             }
         }
 
-        $request_create = patientAnalazes::create($analez_data);
+        $request_create = patient_analzes::create($analez_data);
         return redirect()->route('clinic.patient.search',$clinic->id);
 
     }
