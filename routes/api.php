@@ -21,14 +21,14 @@ Route::group(['namespace'=>'API'],function(){
     Route::post('/users/register','userController@register')->name('register');
     Route::post('user/login','userController@login')->name('user.login');
     /* analyzes routes */
-    Route::get('/analyzes/index','apiController@analyzesIndex')->middleware('jwt.auth');
-    Route::post('/analyzes/store','apiController@analyzesStore')->name('analyzes.store')->middleware('jwt.auth');
-    Route::get('/analyzes/search','apiController@analyzesSearch')->middleware('jwt.auth');
+    Route::get('/analyzes/index','apiController@analyzesIndex');
+    Route::post('/analyzes/store','apiController@analyzesStore')->name('analyzes.store');
+    Route::get('/analyzes/search','apiController@analyzesSearch');
     /* analyzes routes */
 
     /* rays routes */
-    Route::get('/rays/index','apiController@raysIndex')->middleware('jwt.auth');
-    Route::post('/rays/store','apiController@raysStore')->name('rays.store')->middleware('jwt.auth');
-    Route::get('/rays/search','apiController@raysSearch')->middleware('jwt.auth');
+    Route::get('/rays/index','apiController@raysIndex');
+    Route::post('/rays/store','apiController@raysStore')->name('rays.store');
+    Route::get('/rays/search','apiController@raysSearch');
     /* rays routes */
 });

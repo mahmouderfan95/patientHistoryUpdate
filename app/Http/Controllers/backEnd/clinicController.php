@@ -120,7 +120,7 @@ class clinicController extends Controller
         $clinic = Clinic::findOrFail($id);
         $rays = Rays::get();
         $analyzes = analyzes::get();
-        $patient = Patien::where('phoneNumber','like','%' . $request->search . '%')->first();
+        $patient = Patien::with(['patient_analzes','patient_rays','Raoucheh'])->where('phoneNumber','like','%' . $request->search . '%')->first();
         if($patient){
             return view('backEnd.clinic.search-patient',compact('patient','clinic','rays','analyzes'));
         }else{
@@ -156,10 +156,11 @@ class clinicController extends Controller
     }
 
     /* end of function */
-    public function patient_add_analzes($id,StoreAnalaz $request){
-        //dd($request->all());
-        $clinic = Clinic::findOrFail($id);
+    public function patient_clinic_add_analzes($id,StoreAnalaz $request){
+        // dd($request->all());
         $request_data = $request->all();
+        $clinic = Clinic::findOrFail($id);
+        
         if(count($request->name) > 0){
             foreach($request->name as $item => $v){
                 $analez_data = [
@@ -167,7 +168,7 @@ class clinicController extends Controller
                     'description'   => $request->description,
                     'patient_id'    => $request->patient_id,
                 ];
-                // dd($analez_data);
+              
             }
         }
 
@@ -176,9 +177,10 @@ class clinicController extends Controller
 
     }
 
-    public function patient_add_rays($id,StoreRays $request){
-        $clinic = Clinic::findOrFail($id);
+    public function patient_clinic_add_rays($id,StoreRays $request){
+        // dd($request->all());
         $request_data = $request->all();
+        $clinic = Clinic::findOrFail($id);
         if(count($request->name) > 0){
             foreach($request->name as $item=> $v){
                 $data = [

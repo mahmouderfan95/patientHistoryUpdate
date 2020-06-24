@@ -92,7 +92,7 @@
             </div>
             <div class="col-xl-4 col-md-4 mr-auto ml-auto">
               <!-- Button trigger modal -->
-              <div class="text-center">
+              <div class="text-center mt-5">
                 <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Medication">
                   <i class="fas fa-eye mr-2"></i> Show
                 </button>
@@ -152,15 +152,10 @@
             </div>
           </div>
         </div>
-
+        @include('backEnd.layoutes.footer')
     </div>
 </div>
 <!-- Main content -->
+{{-- </div> --}}
 
-
-
-
-
-  </div>
-@include('backEnd.layoutes.footer')
 @stop

@@ -1,8 +1,11 @@
 @extends('backEnd.layoutes.mastar')
 @section('title',$patient->firstName . ' ' . $patient->middleName)
 @section('content')
-@include('backEnd.patien.slidenav')
-@if($patient->patinets_data > 0)
+@include('backEnd.clinic.slidenav')
+@php 
+  $count = $patient->patinets_data->count(); 
+@endphp
+@if($count > 0)
 <div class="d-flex bg-page" id="wrapper">
     
     <div id="page-content-wrapper">
@@ -14,17 +17,17 @@
             <button class="btn btn-primary d-lg-none ml-2" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
             <!-- Search form -->
             <ul class="float-lg-right pr-3">
-              <div class="toggle toggle__wrapper">
+              {{-- <div class="toggle toggle__wrapper">
                 <div id="toggle-example-1" role="switch" aria-checked="false" class="toggle__button">
                   <div class="toggle__switch"></div>
                 </div>
-              </div>
+              </div> --}}
             </ul>
-            <h6 class="h5 text-white">Privacy</h6>
+            {{-- <h6 class="h5 text-white">Privacy</h6> --}}
             <ul class="navbar-nav align-items-center ml-md-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="ni ni-bell-55 mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
+      <i class="fa fa-bell fa-fw mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
                   <!-- Dropdown header -->
@@ -99,10 +102,10 @@
             <div class="container-fluid">
               <div class="header-body">
                   <div class="row pt-5">
-                    <div class="col-xl-4 col-md-4">
+                    <div class="col-xl-3 col-md-3">
                       <!-- Button trigger modal -->
                       <div class="text-center">
-                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Prescription">
+                        <button type="button" class="btn btn-primary text-white col-8" data-toggle="modal" data-target="#Prescription">
                           <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Prescription
                         </button>
                       </div>
@@ -279,17 +282,17 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-xl-4 col-md-4">
+                    <div class="col-xl-3 col-md-3">
                       <!-- Button trigger modal -->
                       <div class="text-center">
-                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Testing">
+                        <button type="button" class="btn btn-primary text-white col-8" data-toggle="modal" data-target="#Testing">
                           <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Test
                         </button>
                       </div>
                       <!-- Modal -->
                       <form action = "{{route('patient_clinic_add_analzes',$clinic->id)}}" method = "POST">
                           {{csrf_field()}}
-                          <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                        <input type="hidden" name="patient_id" value="{{$patient->id}}">
                         <div class="modal fade" id="Testing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -309,7 +312,7 @@
                                             <div class="ui form col-12">
                                               <div class="inline field">
                                                 <label class="h6 font-weight-bold" style="font-size: 12pt; margin-bottom: 8px;">Test</label>
-                                                <select name="name" multiple="" class="label ui large selection fluid dropdown">
+                                                <select name="name[]" multiple="" class="label ui large selection fluid dropdown">
                                                   <option value="">Chooste</option>
                                                   @foreach($analyzes as $analz)
                                                     <option value="{{$analz->name}}">{{$analz->name}}</option>
@@ -337,10 +340,10 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-xl-4 col-md-4">
+                    <div class="col-xl-3 col-md-3">
                       <!-- Button trigger modal -->
                       <div class="text-center">
-                        <button type="button" class="btn btn-primary text-white col-6" data-toggle="modal" data-target="#Rideology">
+                        <button type="button" class="btn btn-primary text-white col-8" data-toggle="modal" data-target="#Rideology">
                           <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i> Rideology
                         </button>
                       </div>
@@ -382,7 +385,7 @@
                                     </ul>
                                     <div class="col-xl-10 col-md-4 mr-auto ml-auto mt-4 mb-5">
                                       <div class="ui input col-12">
-                                        <input type="text" placeholder="Prescription">
+                                        <input type="text" placeholder="Prescription" name="description">
                                       </div>
                                     </div>
                                   </div>
@@ -396,6 +399,203 @@
                           </div>
                         </div>
                       </form>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <!-- old pescription modal -->
+                      <!-- Button trigger modal -->
+                      <button  type="button" class="btn btn-primary col-8" data-toggle="modal" data-target="#exampleModal">
+                        Old Pescription
+                      </button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Old Pescription</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- content -->
+                              @php 
+                                $Raoucheh       = $patient->Raoucheh->count(); 
+                                $patientAnalzazes = $patient->patient_analzes->count(); 
+                                $patient_rays     = $patient->patient_rays->count(); 
+                              @endphp
+                              <!-- tabs -->
+                              <nav class="col-8 ml-auto mr-auto">
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                  <a class="nav-item nav-link font-weight-bold active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Prescription</a>
+                                  <a class="nav-item nav-link font-weight-bold" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Tests</a>
+                                  <a class="nav-item nav-link font-weight-bold" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Rideology</a>
+                                </div>
+                              </nav>
+                              <!-- tabs -->
+                              <div class="tab-content" id="nav-tabContent">
+                              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="header-body">
+                                  <div class="row pt-5">
+                                    <!-- roachata -->
+                                    @if($Raoucheh > 0)
+                                    @foreach($patient->Raoucheh as $Raoucheh)
+                                      <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
+                                        <div class="col-12">
+                                          <h5 class="mt-4 float-right">{{$Raoucheh->created_at}}</h5>
+                                        </div>
+                                        <div class="row col-12 mb-3">
+                                          <div class="col-4">
+                                            <h5 class="font-weight-bold">State</h5>
+                                          </div>
+                                          <div class="col-8">
+                                            <h5 class="">{{$Raoucheh->prescription}}</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row col-12 mb-3">
+                                          <div class="col-4">
+                                            <h5 class="font-weight-bold">Medication</h5>
+                                          </div>
+                                          
+                                          @php 
+                                            $medication_name = json_decode($Raoucheh->medication_name);
+                                          @endphp
+                                          @foreach($medication_name as $medication_name)
+                                          <div class="col-4">
+                                            <h5 class="">{{$medication_name}}</h5>
+                                          </div>
+                                          @endforeach
+                                          @php 
+                                            $time = json_decode($Raoucheh->time);
+                                          @endphp
+                                          @foreach($time as $time)
+                                          <div class="col-4">
+                                            <h5 class="">{{$time}}</h5>
+                                          </div>
+                                          @endforeach
+                                        </div>
+                                      </div>
+                                    @endforeach
+                                    @else 
+                                    <p class="alert alert-danger">No Data</p>
+                                    @endif
+                                    <!-- roachata -->
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- analzes -->
+                              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="header-body">
+                                  <div class="row pt-5">
+                                    @if($patientAnalzazes > 0)
+                                    @foreach($patient->patient_analzes as $patientAnalzazes)
+                                    <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
+                                      <div class="col-12">
+                                        <h5 class="mt-4 float-right">{{$patientAnalzazes->created_at}}</h5>
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">State</h5>
+                                        </div>
+                                        @php 
+                                          $analzes_name = json_decode($patientAnalzazes->name);
+                                        @endphp
+                                        @foreach($analzes_name as $analzes_name)
+                                        <div class="col-8">
+                                          <h5 class="">{{$analzes_name}}</h5>
+                                        </div>
+                                        @endforeach
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">Test</h5>
+                                        </div>
+                                        <div class="col-8">
+                                          <h5 class="">{{$patientAnalzazes->description}}</h5>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    @endforeach
+                                    @else 
+                                    <p class="alert alert-danger">No Data</p>
+                                    @endif
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- analzes -->
+                              <!-- rays -->
+                              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <div class="header-body">
+                                  <div class="row pt-5">
+                                    @if($patient_rays > 0)
+                                    @foreach($patient->patient_rays as $patient_rays)
+                                    <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
+                                      <div class="col-12">
+                                        <h5 class="mt-4 float-right">{{$patient_rays->created_at}}</h5>
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">State</h5>
+                                        </div>
+                                        @php 
+                                          $rays_name = json_decode($patient_rays->name);
+                                        @endphp
+                                        @foreach($rays_name as $rays_name)
+                                        <div class="col-8">
+                                          <h5 class="">{{$rays_name}}</h5>
+                                        </div>
+                                        @endforeach
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">Rideology</h5>
+                                        </div>
+                                        <div class="col-8">
+                                          <h5 class="">{{$patient_rays->description}}</h5>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    <p class="alert alert-danger">No Data</p>
+                                    @endif
+                                    {{-- <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
+                                      <div class="col-12">
+                                        <h5 class="mt-4 float-right">15/05/2020</h5>
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">State</h5>
+                                        </div>
+                                        <div class="col-8">
+                                          <h5 class="">High Blood Pressure</h5>
+                                        </div>
+                                      </div>
+                                      <div class="row col-12 mb-3">
+                                        <div class="col-4">
+                                          <h5 class="font-weight-bold">Rideology</h5>
+                                        </div>
+                                        <div class="col-8">
+                                          <h5 class="">High Blood Pressure</h5>
+                                        </div>
+                                      </div>
+                                    </div> --}}
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- rays -->
+                            </div>
+                              <!-- content -->
+                            </div>
+                           {{--  <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div> --}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- old pescription modal -->
                     </div>
                 </div>
                 <div class="row pt-5">
@@ -424,7 +624,7 @@
                         <div class="row">
                           <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-3">Weight</h5>
-                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}} Kg</span>
+                            <span class="h2 font-weight-bold mb-0">{{$patient->patinets_data->width}}</span>
                           </div>
                           <div class="col-auto">
                             <div>
@@ -504,7 +704,7 @@
         <div class="tab-content mr-auto ml-auto" id="v-pills-tabContent">
 
             <div class="tab-pane animated bounce slow py-0 show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Diseases</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Diseases</h4>
                 @php
                     $agree_name = json_decode($patient->patinets_data->agree_name);
                 @endphp
@@ -523,7 +723,7 @@
             </div>
 
             <div class="tab-pane animated bounce slow py-0" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Medication</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Medication</h4>
                 @php
                     $medication_name = json_decode($patient->patinets_data->medication_name);
                 @endphp
@@ -542,7 +742,7 @@
             </div>
 
             <div class="tab-pane animated bounce slow py-0" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Allergies</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Allergies</h4>
                 <div class="col-xl-8 col-md-4 col-xs-12 row row-text mb-3 mr-auto ml-auto">
                 @php
                     $allergi_name = json_decode($patient->patinets_data->allergi_name);
@@ -564,7 +764,7 @@
             </div>
 
             <div class="tab-pane animated bounce slow py-0" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Surgeries</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Surgeries</h4>
             <div class="pills-main col-xl-8 col-md-4 col-xs-12 row row-text mb-3 mr-auto ml-auto">
                 @php
                     $surgery_name = json_decode($patient->patinets_data->surgery_name,true);
@@ -582,7 +782,7 @@
             </div>
 
             <div class="tab-pane animated bounce slow py-0" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Somking</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Somking</h4>
             <div class="pills-main col-xl-8 col-md-4 col-xs-12 row row-text mb-3 mr-auto ml-auto">
                 <div class="col-8">
                 <h2 class="mt-3 pl-4">Alcohol</h2>
@@ -615,7 +815,7 @@
 
 
             <div class="tab-pane animated bounce py-0" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
-            <h2 class="col-12 ml-xl-8 mb-4">Screening</h2>
+            <h4 class="col-12 ml-4 mt-3 mb-4">Screening</h4>
             <div class="pills-main col-xl-8 col-md-4 col-xs-12 row row-text mb-3 mr-auto ml-auto">
                 <div class="col-8">
                 <h3 class="mt-3 pl-4">Colonscopy</h3>
@@ -706,8 +906,9 @@
                 </div>
                 @endforeach
                 </div>
-                @foreach($brother as $brother)
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-04" role="tabpanel" aria-labelledby="v-pills-04-tab">
+                @foreach($brother as $brother)
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
@@ -716,10 +917,13 @@
                     <h6 class="mt-4">{{$brother}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
-                @foreach($grandpaf as $grandpaf)
+                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-05" role="tabpanel" aria-labelledby="v-pills-05-tab">
+                @if($grandpaf > 0)
+                @foreach($grandpaf as $grandpaf)
                 <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
@@ -728,10 +932,16 @@
                     <h6 class="mt-4">{{$grandpaf}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
-                @foreach($grandpam as $grandpam)
+                @else 
+                <p class="alert alert-danger">No Data</p>
+                @endif
+                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-06" role="tabpanel" aria-labelledby="v-pills-06-tab">
+                  @if($grandpam > 0)
+                @foreach($grandpam as $grandpam)
                 <div class="pills-main pills-main-orange col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="imgs/01.png" width="60" alt="...">
@@ -740,10 +950,16 @@
                     <h6 class="mt-4">{{$grandpam}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
-                @foreach($grandmaf as $grandmaf)
+                @else 
+                <p class="alert alert-danger">No Data</p>
+                @endif
+                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-07" role="tabpanel" aria-labelledby="v-pills-07-tab">
+                @if($grandmaf > 0)
+                @foreach($grandmaf as $grandmaf)
                 <div class="pills-main pills-main-green col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
@@ -752,10 +968,16 @@
                     <h6 class="mt-4">{{$grandmaf}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
-                @foreach($grandmam as $grandmam)
+                @else 
+                <p class="alert alert-danger">No Data</p>
+                @endif
+                </div>
+                
+                
                 <div class="tab-pane animated bounce slow py-0 mb-4 mt-4" id="v-pills-08" role="tabpanel" aria-labelledby="v-pills-08-tab">
+                @if($grandmam > 0)
+                @foreach($grandmam as $grandmam)
                 <div class="pills-main pills-main-teal col-xl-8 col-md-4 col-xs-12 row mb-3 mr-auto ml-auto">
                     <div class="col-2">
                     <img src="{{url('imgs/01.png')}}" width="60" alt="...">
@@ -764,8 +986,12 @@
                     <h6 class="mt-4">{{$grandmam}}</h6>
                     </div>
                 </div>
-                </div>
                 @endforeach
+                @else 
+                <p class="alert alert-danger">No Data</p>
+                @endif
+                </div>
+                
             </div>
         </div>
 

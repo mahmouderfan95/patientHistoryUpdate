@@ -17,7 +17,7 @@
                   <span class="wrap"></span>
                 </a>
               </h2>
-              <h3 class="mb-4">Everywhere, Anytime, Everyday</h3>
+              <h3 class="mb-4">Everywhere, Anytime, Healthy Life.</h3>
             </div>
           </div>
         </div>

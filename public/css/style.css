@@ -219,6 +219,12 @@
   .left-menu {
     position: fixed;
   }
+  .left-menu .dropdown-menu {
+  min-width: 14.7rem;
+  border-radius: 0px;
+  border-top: none;
+  border-right: none;
+}
 
   #page-content-wrapper {
     margin-left: 241px;
@@ -328,7 +334,7 @@
     position: relative;
   }
 
-  .hero-wrap .h2 {
+  .hero-wrap h2 {
     font-size: 38px;
     color: #fff;
     line-height: 1.5;
@@ -2460,3 +2466,5 @@ select.ui.dropdown {
 }
 
 /* width kg */
+
+/* online or ofline */

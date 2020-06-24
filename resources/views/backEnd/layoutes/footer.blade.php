@@ -1,5 +1,5 @@
 <!--Start-Footer-->
-<footer>
+<footer class="mt-5">
     <div class="container-fluid">
         <div class="row copy-right p-2">
           <div class="col-md-6 text-center">

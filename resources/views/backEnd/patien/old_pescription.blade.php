@@ -29,7 +29,7 @@
                 <ul class="navbar-nav align-items-center ml-md-auto">
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="ni ni-bell-55 mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
+                     <i class="fa fa-bell fa-fw mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
                       <!-- Dropdown header -->
@@ -134,15 +134,22 @@
                             <div class="col-4">
                               <h5 class="font-weight-bold">Medication</h5>
                             </div>
-                            
-                            {{-- @foreach($Raoucheh->medication_name as $med=>$val) --}}
+                            @php 
+                              $medication_name = json_decode($Raoucheh->medication_name);
+                            @endphp 
+                            @foreach($medication_name as $medication_name)
                             <div class="col-4">
-                              <h5 class="">{{$Raoucheh->medication_name}}</h5>
+                              <h5 class="">{{$medication_name}}</h5>
                             </div>
-                            {{-- @endforeach --}}
+                            @endforeach
+                            @php 
+                              $time = json_decode($Raoucheh->time);
+                            @endphp 
+                            @foreach($time as $time)
                             <div class="col-4">
-                              <h5 class="">{{$Raoucheh->time}}</h5>
+                              <h5 class="">{{$time}}</h5>
                             </div>
+                            @endforeach
                           </div>
                         </div>
                       @endforeach
@@ -150,52 +157,7 @@
                       <p class="alert alert-danger">No Data</p>
                       @endif
                       <!-- roachata -->
-                      {{-- <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
-                        <div class="col-12">
-                          <h5 class="mt-4 float-right">15/05/2020</h5>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold">State</h5>
-                          </div>
-                          <div class="col-8">
-                            <h5 class="">High Blood Pressure</h5>
-                          </div>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold">Medication</h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">HighBlood</h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">After Eating</h5>
-                          </div>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold"></h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">HighBlood</h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">After Eating</h5>
-                          </div>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold"></h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">HighBlood</h5>
-                          </div>
-                          <div class="col-4">
-                            <h5 class="">After Eating</h5>
-                          </div>
-                        </div>
-                      </div> --}}
+                      
                     </div>
                   </div>
                 </div>
@@ -213,9 +175,14 @@
                           <div class="col-4">
                             <h5 class="font-weight-bold">State</h5>
                           </div>
+                          @php 
+                            $analzes_name = json_decode($patientAnalzazes->name);
+                          @endphp 
+                          @foreach($analzes_name as $analzes_name)
                           <div class="col-8">
-                            <h5 class="">{{$patientAnalzazes->name}}</h5>
+                            <h5 class="">{{$analzes_name}}</h5>
                           </div>
+                          @endforeach
                         </div>
                         <div class="row col-12 mb-3">
                           <div class="col-4">
@@ -230,27 +197,7 @@
                       @else 
                       <p class="alert alert-danger">No Data</p>
                       @endif
-                      {{-- <div class="pills-main pills-main-yellow col-xl-8 col-md-4 col-xs-12 row mb-4 mr-auto ml-auto">
-                        <div class="col-12">
-                          <h5 class="mt-4 float-right">15/05/2020</h5>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold">State</h5>
-                          </div>
-                          <div class="col-8">
-                            <h5 class="">High Blood Pressure</h5>
-                          </div>
-                        </div>
-                        <div class="row col-12 mb-3">
-                          <div class="col-4">
-                            <h5 class="font-weight-bold">Test</h5>
-                          </div>
-                          <div class="col-8">
-                            <h5 class="">High Blood Pressure</h5>
-                          </div>
-                        </div>
-                      </div> --}}
+                      
                     </div>
                   </div>
                 </div>
@@ -269,9 +216,14 @@
                           <div class="col-4">
                             <h5 class="font-weight-bold">State</h5>
                           </div>
+                          @php 
+                          $rays_name = json_decode($patient_rays->name);
+                          @endphp 
+                          @foreach($rays_name as $rays_name)
                           <div class="col-8">
-                            <h5 class="">{{$patient_rays->name}}</h5>
+                            <h5 class="">{{$rays_name}}</h5>
                           </div>
+                          @endforeach
                         </div>
                         <div class="row col-12 mb-3">
                           <div class="col-4">

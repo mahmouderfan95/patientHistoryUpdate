@@ -23,7 +23,7 @@
             <ul class="navbar-nav align-items-center ml-md-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="ni ni-bell-55 mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
+                  <i class="fa fa-bell fa-fw mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
                   <!-- Dropdown header -->

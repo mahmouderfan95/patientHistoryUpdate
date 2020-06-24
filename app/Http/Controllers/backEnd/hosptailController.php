@@ -110,7 +110,7 @@ class hosptailController extends Controller
         $hosptail = Hosptail::findOrFail($id);
         $analyzes = analyzes::get();
         $rays = Rays::get();
-        $patient = Patien::with(['patient_analzes','patient_rays'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        $patient = Patien::with(['patient_analzes','patient_rays','Raoucheh'])->where('phoneNumber','like','%' . $request->search . '%')->first();
         if($patient){
             return view('backEnd.hosptail.search-patient',compact('patient','hosptail','analyzes','rays'));
         }else{
@@ -153,8 +153,8 @@ class hosptailController extends Controller
     }
 
     /* end of function */
-    public function patient_add_analzes($id,StoreAnalaz $request){
-        // dd($request->all());
+    public function patient_hosptail_add_analzes($id,StoreAnalaz $request){
+         //dd($request->all());
         $hosptail = Hosptail::findOrFail($id);
         $request_data = $request->all();
         if(count($request->name) > 0){
@@ -170,9 +170,10 @@ class hosptailController extends Controller
         return redirect()->route('hosptail.patient.search',$hosptail->id);
     }
 
-    public function patient_add_rays($id,StoreRays $request){
-        $hosptail = Hosptail::findOrFail($id);
+    public function patient_hosptail_add_rays($id,StoreRays $request){
+        // dd($request->all());
         $request_data = $request->all();
+        $hosptail = Hosptail::findOrFail($id);
         if(count($request->name) > 0){
             foreach($request->name as $item=> $v){
                 $data = [

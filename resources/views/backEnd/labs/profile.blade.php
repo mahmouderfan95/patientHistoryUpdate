@@ -14,16 +14,16 @@
             <button class="btn btn-primary d-lg-none ml-2" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></button>
             <!-- Search form -->
             <ul class="float-lg-right pr-5">
-              <div class="toggle toggle__wrapper">
+              {{-- <div class="toggle toggle__wrapper">
                 <div id="toggle-example-1" role="switch" aria-checked="false" class="toggle__button">
                   <div class="toggle__switch"></div>
                 </div>
-              </div>
+              </div> --}}
             </ul>
             <ul class="navbar-nav align-items-center ml-md-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="ni ni-bell-55 mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
+                 <i class="fa fa-bell fa-fw mr-lg-3 mt-lg-1" style="font-size: 15pt;"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
                   <!-- Dropdown header -->
@@ -232,7 +232,7 @@
         <div class="header pb-6">
             <div class="container-fluid">
               <div class="header-body">
-                <div class="col-md-10 slide-img">
+                <div class="col-md-10 slide-img ml-auto mr-auto">
                   <img class="d-xs-none" id="about-img" src="{{url('imgs/s1.jpg')}}" height="300" width="895" alt="Responsive image">
                 </div>
                 <div class="row mt-3">

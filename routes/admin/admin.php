@@ -48,8 +48,8 @@ Route::group(
             Route::get('/clinic/{id}/patient/search','clinicController@search')->name('clinic.patient.search')->middleware('is_clinic');
             Route::put('/clinic/profile/{id}','clinicController@updateProfile')->name('clinic.update.profile');
             Route::post('/clinic/{id}/raoucata','clinicController@storeRaoucata')->name('store_clinic_Raoucata');
-            Route::post('/clinic/{id}/analazes','clinicController@patient_add_analzes')->name('patient_clinic_add_analzes');
-            Route::post('/clinic/{id}/rays','clinicController@patient_add_rays')->name('patient_clinic_add_rays');
+            Route::post('/clinic/add/analazes/{id}','clinicController@patient_clinic_add_analzes')->name('patient_clinic_add_analzes');
+            Route::post('/clinic/add/rays/{id}','clinicController@patient_clinic_add_rays')->name('patient_clinic_add_rays');
             Route::get('/clinic/verify/{id}','clinicController@verifyClinic')->name('verifyClinic');
             Route::get('/clinic/sendEmail/{id}','clinicController@sendEmail')->name('clinic_send_email');
             /* clinic routes */
@@ -62,8 +62,8 @@ Route::group(
             Route::get('/hosptail/logout','hosptailController@logout')->name('hosptail.logout');
             Route::get('/hosptail/{id}/patient/search','hosptailController@search')->name('hosptail.patient.search')->middleware('is_hosptail');
             Route::post('/hosptail/{id}/raoucata','hosptailController@storeRaoucata')->name('store_hosptail_Raoucata');
-            Route::post('/hosptail/{id}/analazes','hosptailController@patient_add_analzes')->name('patient_add_analzes');
-            Route::post('/hosptail/{id}/rays','hosptailController@patient_add_rays')->name('patient_add_rays');
+            Route::post('/hosptail/add/analazes/{id}','hosptailController@patient_hosptail_add_analzes')->name('patient_add_analzes');
+            Route::post('/hosptail/add/rays/{id}','hosptailController@patient_hosptail_add_rays')->name('patient_add_rays');
             Route::get('/hosptail/verify/{id}','hosptailController@verifyhosptail')->name('verifyhosptail');
             Route::get('/hosptail/sendEmail/{id}','hosptailController@sendEmail')->name('hosptail_send_email');
             /* hosptail routes */
