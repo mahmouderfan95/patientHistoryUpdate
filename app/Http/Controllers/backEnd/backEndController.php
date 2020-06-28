@@ -61,8 +61,6 @@ class backEndController extends Controller
         //     return back()->with('msg','accont is not active');
         // }
         return redirect('en/dashbord/' . $request->get('guard') . '/edit/profile' . '/' . auth()->guard($request->get('guard'))->user()->id);
-
-
     }
     public function checkEmail(){
         return view('backEnd.layoutes.checkYourEmail');
@@ -94,33 +92,39 @@ class backEndController extends Controller
     /* end of function */
     /* function post forgot password */
     public function post_forgot_password(Request $request){
-        $patient = DB::table('patiens')->where('email','LIKE','%' . $request->email. '%')->first();
-        $hosptail = DB::table('hosptails')->where('email','LIKE','%' . $request->email. '%')->first();
-        $clinic = DB::table('clinics')->where('email', 'LIKE','%' . $request->email. '%')->first();
-        $xrays = DB::table('xrays')->where('email','LIKE','%' . $request->email. '%')->first();
-        $labs = DB::table('labs')->where('email','LIKE','%' . $request->email. '%')->first();
-        $pharmacy = DB::table('pharmacies')->where('email','LIKE','%' . $request->email. '%')->first();
+        $patient = DB::table('patiens')->where('phoneNumber','LIKE','%' . $request->code. '%')->first();
+        $hosptail = DB::table('hosptails')->where('phoneNumber','LIKE','%' . $request->code. '%')->first();
+        $clinic = DB::table('clinics')->where('phoneNumber', 'LIKE','%' . $request->code. '%')->first();
+        $xrays = DB::table('xrays')->where('phoneNumber','LIKE','%' . $request->code. '%')->first();
+        $labs = DB::table('labs')->where('phoneNumber','LIKE','%' . $request->code. '%')->first();
+        $pharmacy = DB::table('pharmacies')->where('phoneNumber','LIKE','%' . $request->code. '%')->first();
 
         if($patient == true){
-            Mail::to($patient->email)->send(new reset_password($patient));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($patient->email)->send(new reset_password($patient));
+            // $patient->phoneNumber = str_replace('p', '+', $patient->phoneNumber);
+            return redirect()->route('patient_password',$patient->id);
         }elseif($hosptail == true){
-            Mail::to($hosptail->email)->send(new hosptail_reset_password($hosptail));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($hosptail->email)->send(new hosptail_reset_password($hosptail));
+            // $hosptail->phoneNumber = str_replace('h', '+', $hosptail->phoneNumber);
+             return redirect()->route('hosptail_password',$hosptail->id);
         }elseif($clinic == true){
-            Mail::to($clinic->email)->send(new clinic_reset_password($clinic));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($clinic->email)->send(new clinic_reset_password($clinic));
+            // $clinic->phoneNumber = str_replace('c', '+', $clinic->phoneNumber);
+             return redirect()->route('clinic_password',$clinic->id);
         }elseif($xrays == true){
-            Mail::to($xrays->email)->send(new xrays_reset_password($xrays));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($xrays->email)->send(new xrays_reset_password($xrays));
+            // $xray->phoneNumber = str_replace('x', '+', $xray->phoneNumber);
+            return redirect()->route('xray_password',$xray->id);
         }elseif($labs == true){
-            Mail::to($labs->email)->send(new labs_reset_password($labs));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($labs->email)->send(new labs_reset_password($labs));
+            // $labs->phoneNumber = str_replace('l', '+', $labs->phoneNumber);
+            return redirect()->route('labs_password',$labs->id);
         }elseif($pharmacy == true){
-            Mail::to($pharmacy->email)->send(new pharmacy_reset_password($pharmacy));
-            return redirect()->back()->with(['checkMsg'=> 'check your email']);
+            // Mail::to($pharmacy->email)->send(new pharmacy_reset_password($pharmacy));
+            // $pharmacy->phoneNumber = str_replace('y', '+', $pharmacy->phoneNumber);
+             return redirect()->route('pharmacy_password',$pharmacy->id);
         }else{
-            return redirect()->back()->with(['errorEmailMsg'=> 'Email is incorrect']);
+            return redirect()->back()->with(['errorEmailMsg'=> 'code is incorrect']);
         }
 
     }

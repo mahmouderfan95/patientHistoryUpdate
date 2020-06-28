@@ -10,11 +10,11 @@
         {{ csrf_field() }}
         <h5>Forgot Password</h5>
         <div class="form-group">
-            <label>Please Enter Your Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Enter Your Email">
+            <label>Please Enter Your id code </label>
+            <input type="text" name="code" class="form-control" placeholder="Enter Your Code Id">
         </div>
         <div class="form-group">
-            <input type="submit" value="send email">
+            <input type="submit" value="Enter">
         </div>
 
     </form>

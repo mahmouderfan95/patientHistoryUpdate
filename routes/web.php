@@ -57,3 +57,48 @@ Route::get('login/{provider}','socialController@redirectToProvider')->middleware
 Route::get('login/{provider}/callback','socialController@handleProviderCallback')->middleware('web');
 /* social media routes */
 
+
+/* forgot password routes */
+/* patient forgot password routes */
+Route::get('/patient/forgot/password/{id}','firebaseController@patient_password')->name('patient_password');
+Route::post('/patient/forgot/password/{id}','firebaseController@post_patient_password')->name('post_patient_password');
+Route::get('/patient/confirm/password/{id}','firebaseController@confirm_password')->name('get_confirm_password');
+Route::post('/patient/post/confirm/password/{id}','firebaseController@patient_confirm_password')->name('patient_confirm_password');
+
+/* patient forgot password routes */
+
+/* hosptail forgot password routes */
+Route::get('/hosptail/forgot/password/{id}','firebaseController@hosptail_password')->name('hosptail_password');
+Route::post('/hosptail/forgot/password/{id}','firebaseController@post_hosptail_password')->name('post_hosptail_password');
+Route::get('/hosptail/confirm/password/{id}','firebaseController@hosptail_confirm_password')->name('get_hosptail_confirm_password');
+Route::post('/hosptail/confirm/password/{id}','firebaseController@post_hosptail_confirm_password')->name('post_hosptail_confirm_password');
+/* hosptail forgot password routes */
+
+/* clinic forgot password routes */
+Route::get('/clinic/forgot/password/{id}','firebaseController@clinic_password')->name('clinic_password');
+Route::post('/clinic/forgot/password/{id}','firebaseController@post_clinic_password')->name('post_clinic_password');
+Route::get('/clinic/confirm/password/{id}','firebaseController@clinic_confirm_password')->name('get_clinic_confirm_password');
+Route::post('/clinic/confirm/password/{id}','firebaseController@post_clinic_confirm_password')->name('post_clinic_confirm_password');
+/* clinic forgot password routes */
+
+/* xray forgot password routes */
+Route::get('/xray/forgot/password/{id}','firebaseController@xray_password')->name('xray_password');
+Route::post('/xray/forgot/password/{id}','firebaseController@post_xray_password')->name('post_xray_password');
+Route::get('/xray/confirm/password/{id}','firebaseController@')->name('get_xray_confirm_password');
+Route::post('/xray/confirm/password/{id}','firebaseController@post_xray_confirm_password')->name('post_xray_confirm_password');
+/* xray forgot password routes */
+
+/* patient forgot password routes */
+Route::get('/labs/forgot/password/{id}','firebaseController@labs_password')->name('labs_password');
+Route::post('/labs/forgot/password/{id}','firebaseController@post_labs_password')->name('post_labs_password');
+Route::get('/labs/confirm/password/{id}','firebaseController@labs_confirm_password')->name('get_labs_confirm_password');
+Route::post('/labs/confirm/password/{id}','firebaseController@post_labs_confirm_password')->name('post_labs_confirm_password');
+/* patient forgot password routes */
+
+/* patient forgot password routes */
+Route::get('/pharmacy/forgot/password/{id}','firebaseController@pharmacy_password')->name('pharmacy_password');
+Route::post('/pharmacy/forgot/password/{id}','firebaseController@post_pharmacy_password')->name('post_pharmacy_password');
+Route::get('/pharmacy/confirm/password/{id}','firebaseController@pharmacy_confirm_password')->name('get_pharmacy_confirm_password');
+Route::post('/pharmacy/confirm/password/{id}','firebaseController@post_pharmacy_confirm_password')->name('post_pharmacy_confirm_password');
+/* patient forgot password routes */
+/* forgot password routes */
