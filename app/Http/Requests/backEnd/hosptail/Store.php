@@ -44,6 +44,9 @@ class Store extends FormRequest
             'password'          => 'required|confirmed',
             'password_confirmation'=>'sometimes|required_with:password',
             'role'  => '',
+            'hosptail_labs' => '',
+            'hosptail_xray' => '',
+            'hosptail_pharmacy' => '',
         ];
     }
 }

@@ -26,6 +26,12 @@ class Clinic extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
-        'verify'
+        'verify',
+        'clinic_labs',
+        'clinic_xray',
+        'clinic_pharmacy'
     ];
+    public function doctors(){
+        return $this->hasMany('App\models\Doctor','clinic_id');   
+    }
 }

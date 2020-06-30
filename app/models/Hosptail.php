@@ -29,5 +29,11 @@ class Hosptail extends Authenticatable implements MustVerifyEmail
     'password',
     'role',
     'verify',
+    'hosptail_labs',
+    'hosptail_xray',
+    'hosptail_pharmacy',
 ];
+    public function doctors(){
+        return $this->hasMany('App\models\Doctor','hosptail_id');   
+    }
 }

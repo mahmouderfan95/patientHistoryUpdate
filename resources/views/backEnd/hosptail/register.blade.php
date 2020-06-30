@@ -403,6 +403,18 @@
                                 <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password">
                             </div>
                         </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">Labs</label>
+                            <input type="checkbox" name="hosptail_labs" value="1">
+                        </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">Xray</label>
+                            <input type="checkbox" name="hosptail_xray" value="1">
+                        </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">pharmacy</label>
+                            <input type="checkbox" name="hosptail_pharmacy" value="1">
+                        </div>
                         <div class="col-12 text-center mb-5 mt-5">
                             <button type="submit" class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
                         </div>

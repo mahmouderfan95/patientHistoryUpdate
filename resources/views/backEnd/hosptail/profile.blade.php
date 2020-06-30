@@ -107,20 +107,185 @@
                     <div class="card card-stats">
                       <!-- Card body -->
                       <div class="card-body">
-                        <h5 class=" font-weight-bold p-4">Enter Phone Number Patient</h5>
+                        <h5 class=" font-weight-bold p-4">Enter ID </h5>
                         @foreach($errors->all() as $error)
                         <div class="alert alert-danger">{{$error}}</div>
                         @endforeach
                         <form action="{{route('hosptail.patient.search',$hosptail->id)}}" method="GET">
                             <div class="row m-1">
                                 <div class="col-md-8 mr-auto ml-auto ui input large mb-3">
-                                <input class="" type="text" name="search" placeholder="Phone Number" required = "required">
+                                <input class="" type="text" name="search" placeholder="Enter Your ID" required = "required">
                                 </div>
                                 <div class="col-md-8 mr-auto ml-auto ui input mt-3 mb-3">
                                 <button class="btn btn-primary col-md-12"><i class="fa fa-search mr-2" aria-hidden="true"></i>Search</button>
                                 </div>
+
                             </div>
                         </form>
+                        <!-- add new doctor -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Add New Doctor <i class="fa fa-plus fa-fw"></i>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add new doctor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="{{route('hosptail_add_doctor',$hosptail->id)}}" method="POST" enctype="multipart/form-data">
+                                  {{csrf_field()}}
+                                  <input type="hidden" name="hosptail_id" value="{{$hosptail->id}}">
+                                  <div class="avatar-wrapper">
+                                    <img class="profile-pic" src="" name = "image"/>
+                                    <div class="upload-button">
+                                        <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="file-upload" type="file" accept="image/*" name="image">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Doctor Name</label>
+                                    <input type="text" name="name" class="form-control">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>phone Number</label>
+                                    <input type="text" name="phoneNumber" class="form-control">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Primary Speciality</label>
+                                    <select class="form-control" type="text" name="Primary_Speciality">
+                                        <option value="0">Chosse ..</option>
+                                        <option value="Audiologist">Audiologist</option>
+                                        <option value="Audiologist">Allergist</option>
+                                        <option value="Audiologist">Anesthesiologist </option>
+                                        <option value="Audiologist">Andrologists </option>
+                                        <option value="Audiologist">Cardiologist </option>
+                                        <option value="Audiologist">Cardiovascular </option>
+                                        <option value="Audiologist">Cardiovascular Surgery</option>
+                                        <option value="Audiologist">Neurologist </option>
+                                        <option value="Audiologist">Dentist </option>
+                                        <option value="Audiologist">dermatologist </option>
+                                        <option value="Audiologist">Emergency Doctors</option>
+                                        <option value="Audiologist">Endocrinologist  </option>
+                                        <option value="Audiologist">gynecologist  </option>
+                                        <option value="Audiologist">Psychiatrist  </option>
+                                        <option value="Audiologist">hematology  </option>
+                                        <option value="Audiologist">Hepatologists   </option>
+                                        <option value="Audiologist">Immunologist   </option>
+                                        <option value="Audiologist">Internists Gastroenterology Neonatologist </option>
+                                        <option value="Audiologist">Orthopdist   </option>
+                                        <option value="Audiologist">Pediatrician   </option>
+                                        <option value="Audiologist">Plastic Surgeon </option>
+                                        <option value="Audiologist">Surgeon   </option>
+                                        <option value="Audiologist">Urologist     </option>
+                                        <option value="Audiologist">Rheumatologist    </option>
+                                        <option value="Audiologist">Ophthalmologist    </option>
+                                        <option value="Audiologist">General Practitioner </option>
+                                        <option value="Audiologist">Ear , Nose and Throat </option>
+                                        <option value="Audiologist">Endoscopic Surgeon </option>
+                                        <option value="Audiologist">Radiologist     </option>
+                                        <option value="Audiologist">Laboratory & Analytical </option>
+                                        <option value="Audiologist">Pharmacist      </option>
+                                        <option value="Audiologist">Oncologist     </option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Degree</label>
+                                    <select class="form-control" placeholder="drgree" name="degree">
+                                        <option value="">Chosse .. </option>
+                                        <option value="MD">MD</option>
+                                        <option value="BSC">BSC</option>
+                                        <option value="MSC">MSC</option>
+                                        <option value="PsyD">PsyD</option>
+                                        <option value="PhD">PhD</option>
+                                        <option value="MDCM">MDCM</option>
+                                        <option value="DO">DO</option>
+                                        <option value="MBBS">MBBS</option>
+                                        <option value="MBChB">MBChB</option>
+                                        <option value="DDS">DDS</option>
+                                        <option value="DPM">DPM</option>
+                                        <option value="EdD">EdD</option>
+                                        <option value="PharmD">PharmD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Information</label>
+                                  <textarea class="form-control" row = "4" cols="10" name="information" style="resize: none"></textarea>
+                                </div>
+                                  <input type="submit" value="Add" class="btn btn-primary">
+                                </form>
+                              </div>
+                              {{-- <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div> --}}
+                            </div>
+                          </div>
+                        </div>
+                        <!-- ad new doctor -->
+                        <!-- get All Doctor -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#getAllDoctor">
+                          Get All Doctor
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="getAllDoctor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg" role="document" >
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Get All Doctor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope = "col">Image</th>
+                                      <th scope="col">Doctor Name</th>
+                                      <th scope="col">Primary Speciality</th>
+                                      <th scope="col">Degree</th>
+                                      <th>Control</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    @php 
+                                    $doctor_count = $hosptail->doctors->count();
+                                    @endphp
+                                    @if($doctor_count > 0)
+                                    @foreach($hosptail->doctors as $doctor)
+                                    <tr>
+                                      <th scope="row">{{$doctor->id}}</th>
+                                      <td><img src="{{url(public_path('uploads/doctor/hosptail/' . $doctor->image))}}"></td>
+                                      <td>{{$doctor->name}}</td>
+                                      <td>{{$doctor->Primary_Speciality}}</td>
+                                      <td>{{$doctor->degree}}</td>
+                                      <td>
+                                        <a class="btn btn-danger" href="#">Delete</a>
+                                      </td>    
+                                    </tr>
+                                    @endforeach
+                                    @else
+                                    <div class="alert alert-danger">Sory Doctors Not Found</div>
+                                    @endif
+                                  </tbody>
+                                </table>
+                              </div>
+                              {{-- <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Get</button>
+                              </div> --}}
+                            </div>
+                          </div>
+                        </div>
+                        <!-- get All Doctor -->
                       </div>
                     </div>
                   </div>

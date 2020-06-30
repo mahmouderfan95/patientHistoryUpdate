@@ -187,4 +187,6 @@ class patienController extends Controller
         return view('backEnd.patien.old_pescription',compact('patient'));
     }
 
+    
+
 }

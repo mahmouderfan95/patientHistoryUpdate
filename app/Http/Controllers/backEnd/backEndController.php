@@ -56,6 +56,10 @@ class backEndController extends Controller
         $attmp = $request->only('phoneNumber','password');
         if(! Auth::guard($request->get('guard'))->attempt($attmp)){
             return redirect()->back()->with('msg','email or passord incorrect');
+        }elseif(Auth::guard($request->get('guard'))->user()->hosptail_labs == 1 || Auth::guard($request->get('guard'))->user()->hosptail_xray == 1 || Auth::guard($request->get('guard'))->user()->hosptail_pharmacy == 1){
+            return redirect()->route('hosptail_as_doctor',Auth::guard($request->get('guard'))->user()->id);
+        }elseif(Auth::guard($request->get('guard'))->user()->clinic_labs == 1 || Auth::guard($request->get('guard'))->user()->clinic_xray == 1 || Auth::guard($request->get('guard'))->user()->clinic_pharmacy == 1){
+            return redirect()->route('clinic_as_doctor',Auth::guard($request->get('guard'))->user()->id);
         }
         // elseif(auth()->guard($request->get('guard'))->is_active != 1){
         //     return back()->with('msg','accont is not active');

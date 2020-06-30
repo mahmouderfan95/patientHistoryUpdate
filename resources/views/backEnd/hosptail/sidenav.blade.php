@@ -12,7 +12,7 @@
             <a href="#" class="list-group-item list-group-item-action h5"><i class="fas fa-user-shield mr-2"></i> Insurance </a>
             <a href="#" class="list-group-item list-group-item-action h5"><i class="fas fa-comments mr-2"></i> Online </a>
             <a href="#" class="list-group-item list-group-item-action h5"><i class="fas fa-comments mr-2"></i> QR Code </a>
-        <a href="#" class="list-group-item list-group-item-action h5"><i class="fas fa-comments mr-2"></i> Share <i class="fas fa-asterisk float-right size-f text-red"></i></a>
+        <a href="#" class="list-group-item list-group-item-action h5"><i class="fas fa-comments mr-2"></i> Share</a>
           </div>
         </div>
         <a href="{{route('hosptail.logout')}}" class="list-group-item list-group-item-action mb-5 h5"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>

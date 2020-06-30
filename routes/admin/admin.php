@@ -52,6 +52,15 @@ Route::group(
             Route::post('/clinic/add/rays/{id}','clinicController@patient_clinic_add_rays')->name('patient_clinic_add_rays');
             Route::get('/clinic/verify/{id}','clinicController@verifyClinic')->name('verifyClinic');
             Route::get('/clinic/sendEmail/{id}','clinicController@sendEmail')->name('clinic_send_email');
+            Route::get('/clinic/as_doctor/{id}','clinicController@as_a_doctor')->name('clinic_as_doctor');
+            Route::get('/clinic/as_doctor/{id}/labs','clinicController@get_search_lab')->name('clinic_get_search_lab');
+            Route::get('/clinic/as_doctor_search/{id}/labs','clinicController@post_search_lab')->name('clinic_post_search_lab');
+            Route::get('/clinic/as_doctor/{id}/xray','clinicController@get_search_xray')->name('clinic_get_search_xray');
+            Route::get('/clinic/as_doctor_search/{id}/xray','clinicController@post_search_xray')->name('clinic_post_search_xray');
+            Route::get('/clinic/as_doctor/{id}/pharmacy','clinicController@get_search_pharmacy')->name('clinic_get_search_pharmacy');
+            Route::get('/clinic/as_doctor_search/{id}/pharmacy','clinicController@post_search_pharmacy')->name('clinic_post_search_pharmacy');
+            Route::post('/clinic/{id}/add/doctor','clinicController@clinic_add_doctor')->name('clinic_add_doctor');
+            Route::DELETE('/clinic/{id}/delete/doctor/{doctor_id}','clinicController@clinic_delete_doctor')->name('clinic_delete_doctor');
             /* clinic routes */
             /* hosptail routes */
             Route::get('/hosptail/register','hosptailController@register')->name('hosptailRegister');
@@ -66,6 +75,15 @@ Route::group(
             Route::post('/hosptail/add/rays/{id}','hosptailController@patient_hosptail_add_rays')->name('patient_add_rays');
             Route::get('/hosptail/verify/{id}','hosptailController@verifyhosptail')->name('verifyhosptail');
             Route::get('/hosptail/sendEmail/{id}','hosptailController@sendEmail')->name('hosptail_send_email');
+            Route::get('/hosptail/as_doctor/{id}','hosptailController@as_a_doctor')->name('hosptail_as_doctor');
+            Route::get('/hosptail/as_doctor/{id}/labs','hosptailController@get_search_lab')->name('get_search_lab');
+            Route::get('/hosptail/as_doctor_search/{id}/labs','hosptailController@post_search_lab')->name('post_search_lab');
+            Route::get('/hosptail/as_doctor/{id}/xray','hosptailController@get_search_xray')->name('get_search_xray');
+            Route::get('/hosptail/as_doctor_search/{id}/xray','hosptailController@post_search_xray')->name('post_search_xray');
+            Route::get('/hosptail/as_doctor/{id}/pharmacy','hosptailController@get_search_pharmacy')->name('get_search_pharmacy');
+            Route::get('/hosptail/as_doctor_search/{id}/pharmacy','hosptailController@post_search_pharmacy')->name('post_search_pharmacy');
+            Route::post('/hosptail/{id}/add/doctor','hosptailController@hosptail_add_doctor')->name('hosptail_add_doctor');
+            Route::DELETE('/hosptail/{id}/delete/doctor/{doctor_id}','hosptailController@hosptail_delete_doctor')->name('hosptail_delete_doctor');
             /* hosptail routes */
             /* xray routes */
             Route::get('/xray/register','xrayController@register')->name('xrayRegister');

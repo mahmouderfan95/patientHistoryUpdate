@@ -10,7 +10,9 @@ use App\models\API\Rays;
 use App\models\API\analyzes;
 use App\models\patient_rays;
 use App\models\patient_analzes;
+use App\models\Doctor;
 use App\models\Raoucheh;
+use App\Http\Requests\backEnd\doctor\StoreDoctor;
 use App\Http\Requests\backEnd\clinic\Store;
 use App\Http\Requests\backEnd\clinic\Update;
 use App\Http\Requests\backEnd\clinic\StoreAnalaz;
@@ -193,4 +195,66 @@ class clinicController extends Controller
         $request_create = patient_rays::create($data);
         return redirect()->route('clinic.patient.search',$clinic->id);
     }
+
+    public function as_a_doctor($id){
+        $clinic = Clinic::findOrFail($id);
+        return view('backEnd.clinic.as_a_doctor',compact('clinic'));
+    }
+    public function get_search_lab($id){
+        $clinic = Clinic::findOrFail($id);
+        return view('backEnd.clinic.clinic_lab_profile',compact('clinic'));
+    }
+    public function post_search_lab($id,Request $request){
+        $clinic = Clinic::findOrFail($id);
+        $patient = Patien::with(['patient_analzes'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.clinic.search_lab_clinic',compact('patient','clinic'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    }
+
+    public function get_search_xray($id){
+        $clinic = Clinic::findOrFail($id);
+        return view('backEnd.clinic.clinic_xray_profile',compact('clinic'));
+    }
+    public function post_search_xray($id,Request $request){
+        $clinic = Clinic::findOrFail($id);
+        $patient = Patien::with(['patient_rays'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.clinic.search_xray_clinic',compact('patient','clinic'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    } 
+
+    public function get_search_pharmacy($id){
+        $clinic = Clinic::findOrFail($id);
+        return view('backEnd.clinic.clinic_pharmacy_profile',compact('clinic'));
+    }
+    public function post_search_pharmacy($id,Request $request){
+        $clinic = Clinic::findOrFail($id);
+        $patient = Patien::with(['Raoucheh'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.clinic.search_pharmacy_clinic',compact('patient','clinic'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    }
+
+    public function clinic_add_doctor($id,StoreDoctor $request){
+        $doctor_data = $request->all();
+        /* upload img */
+        if($request->image){
+            $img = Image::make($request->image)
+            ->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/doctor/clinic/' . $request->image->hashName()));
+            $doctor_data['image'] = $request->image->hashName();
+        }
+        $clinic = Clinic::findOrFail($id);
+        $doctor_create = Doctor::create($doctor_data);
+        return redirect()->route('clinic.profile',$clinic->id);
+    }
 }
+

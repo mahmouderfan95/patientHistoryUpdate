@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\models\Hosptail;
 use App\models\Patien;
 use App\models\patient_analzes;
+use App\models\Doctor;
 use App\models\patient_rays;
 // use App\models\patient_rays;
 use App\models\Raoucheh;
 use App\models\API\analyzes;
 use App\models\API\Rays;
 use App\Http\Requests\backEnd\hosptail\Store;
+use App\Http\Requests\backEnd\doctor\StoreDoctor;
 use App\Http\Requests\backEnd\hosptail\Update;
 use App\Http\Requests\backEnd\hosptail\StoreAnalaz;
 use App\Http\Requests\backEnd\hosptail\StoreRays;
@@ -54,7 +56,10 @@ class hosptailController extends Controller
         $request_data['is_active'] = false;
         /* insert data */
         $hosptail_create = Hosptail::create($request_data);
+       
         return redirect()->route('hosptail_verify',compact('hosptail_create'));
+        
+        
         // /* send mail */
         //  Mail::to($hosptail_create->email)->send(new verifyHosptail($hosptail_create));
         // return redirct //
@@ -149,6 +154,7 @@ class hosptailController extends Controller
             }
         }
         $roaucataCreate = Raoucheh::create($roaucata_data);
+        
         return redirect()->route('hosptail.patient.search',$hosptail->id)->with(['roacataMsg'=>'Roacata Added Successfuly']);
     }
 
@@ -186,5 +192,73 @@ class hosptailController extends Controller
         $request_create = patient_rays::create($data);
         return redirect()->route('hosptail.patient.search',$hosptail->id);
     }
+
+    public function as_a_doctor($id){
+        $hosptail = Hosptail::findOrFail($id);
+        return view('backEnd.hosptail.as_a_doctor',compact('hosptail'));
+    }
+    public function get_search_lab($id){
+        $hosptail = Hosptail::findOrFail($id);
+        return view('backEnd.hosptail.hosptail_lab_profile',compact('hosptail'));
+    }
+    public function post_search_lab($id,Request $request){
+        $hosptail = Hosptail::findOrFail($id);
+        $patient = Patien::with(['patient_analzes'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.hosptail.search_lab_hosptail',compact('patient','hosptail'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    }
+
+    public function get_search_xray($id){
+        $hosptail = Hosptail::findOrFail($id);
+        return view('backEnd.hosptail.hosptail_xray_profile',compact('hosptail'));
+    }
+    public function post_search_xray($id,Request $request){
+        $hosptail = Hosptail::findOrFail($id);
+        $patient = Patien::with(['patient_rays'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.hosptail.search_xray_hosptail',compact('patient','hosptail'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    } 
+
+    public function get_search_pharmacy($id){
+        $hosptail = Hosptail::findOrFail($id);
+        return view('backEnd.hosptail.hosptail_pharmacy_profile',compact('hosptail'));
+    }
+    public function post_search_pharmacy($id,Request $request){
+        $hosptail = Hosptail::findOrFail($id);
+        $patient = Patien::with(['Raoucheh'])->where('phoneNumber','like','%' . $request->search . '%')->first();
+        if($patient){
+            return view('backEnd.hosptail.search_pharmacy_hosptail',compact('patient','hosptail'));
+        }else{
+            return redirect()->back()->withErrors(['msgSearchError'=>'No Result']);
+        }
+    } 
+
+    public function hosptail_add_doctor($id,StoreDoctor $request){
+        $doctor_data = $request->all();
+        /* upload img */
+        if($request->image){
+            $img = Image::make($request->image)
+            ->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/doctor/hosptail/' . $request->image->hashName()));
+            $doctor_data['image'] = $request->image->hashName();
+        }
+        $hosptail = Hosptail::findOrFail($id);
+        $doctor_create = Doctor::create($doctor_data);
+        return redirect()->route('hosptail.profile',$hosptail->id);
+    }
+
+    // public function hosptail_delete_doctor($id,$doctor_id){
+    //     $hosptail = Hosptail::findOrFail($id);
+    //     $hosptail->doctors()->where('id',$doctor_id)->delete();
+    //     dd('done delete');
+        
+    //  }
 
 }

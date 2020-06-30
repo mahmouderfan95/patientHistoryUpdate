@@ -451,6 +451,18 @@
                                 <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password">
                             </div>
                         </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">Add Lab</label>
+                            <input type="checkbox" name="clinic_labs" value="1">
+                        </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">Add Xray</label>
+                            <input type="checkbox" name="clinic_xray" value="1">
+                        </div>
+                        <div class="col-md-4 mb-xl-3">
+                            <label class="h5 font-weight-bold">Add pharmacy</label>
+                            <input type="checkbox" name="clinic_pharmacy" value="1">
+                        </div>
                         <div class="col-12 text-center mb-5 mt-5">
                             <button type="submit" class=" col-9 btn btn-primary font-weight-400 mr-auto ml-auto">Submite</button>
                         </div>

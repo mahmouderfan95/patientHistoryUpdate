@@ -35,6 +35,9 @@ class CreateHosptailsTable extends Migration
             $table->string('role');
             $table->boolean('verify')->default(false);
             $table->boolean('is_active')->default(false);
+            $table->boolean('hosptail_labs')->default(false);
+            $table->boolean('hosptail_xray')->default(false);
+            $table->boolean('hosptail_pharmacy')->default(false);
             $table->timestamps();
         });
     }

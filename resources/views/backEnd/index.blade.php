@@ -83,7 +83,7 @@
             <div class="col-md-6 form">
                 <p class="group">
                 <input id="name" type="text" required name="phoneNumber">
-                <label for="name">Phone Number</label>
+                <label for="name">ID</label>
                 </p>
                 <p class="group">
                 <input id="Password" type="password" required name="password">

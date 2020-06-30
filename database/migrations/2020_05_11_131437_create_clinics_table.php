@@ -35,6 +35,9 @@ class CreateClinicsTable extends Migration
             $table->string('role');
             $table->boolean('verify')->default(false);
             $table->boolean('is_active')->default(false);
+            $table->boolean('clinic_labs')->default(false);
+            $table->boolean('clinic_xray')->default(false);
+            $table->boolean('clinic_pharmacy')->default(false);
             $table->timestamps();
         });
     }
